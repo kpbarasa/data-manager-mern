@@ -144,6 +144,14 @@ Desc:   404 Page Error
       
       
 ## 11. gitignore.js:
+
+      ```
+      ./assets
+      ./models
+      ./package-lock.json
+      ./package.json
+      .env
+      ```
 ## 12. Server.js:
 
 
