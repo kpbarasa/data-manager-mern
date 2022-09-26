@@ -43,7 +43,7 @@ Data manager
 
 # 3 APP COMPONENETS 
 
-## 1. Assets/:
+## 1. Assets/
 #### documents/ 
 + /docs 
 + /pdf 
@@ -70,18 +70,18 @@ Handler 5:  notFound <br>
 Desc:   404 Page Error
     
     
-## 3. Middleware.js:
+## 3. Middleware
 ####  (auth-post.middleware.js)
     
 ## 4. Server.js:
     
-## 5. Modules/: 
+## 5. Modules/
 + data-index.model.js
 + data-index-videos.model.js
 + data-index-images.model.js
 + data-index-documents.model.js
    
-## 7. Routes/:
+## 7. Routes/
 #### 7.1 routes.js:
     
      ```
@@ -124,14 +124,14 @@ Desc:   404 Page Error
      Controller: deleteData
      ```
     
-## 8. Utils.js:
+## 8. Utils/
 + database.js:
 + delete-file.js:
 + get-data-type.js:
 + response-format.js:
 + upload-file.js:
     
-## 9. Views.js:
+## 9. Views/
     
 ## 10. .env.js:   
 + ATLAS_URI=mongodb+srv://<UserName>:<password>.4p1ws.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
