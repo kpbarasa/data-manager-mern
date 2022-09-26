@@ -52,7 +52,7 @@ Data manager
 #### videos/
     
 ## 2. Handlers/
-#### errorHandlers.js
+#### (errorHandlers.js)
     
 Handler: (catchErrors) Catch Errors Handler <br>
 Desc:  catch url string errors
