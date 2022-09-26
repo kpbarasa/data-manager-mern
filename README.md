@@ -45,14 +45,14 @@ Data manager
 
 ## 1. Assets/:
 #### documents/ 
-#####  /docs 
-#####  /pdf 
+#####  + /docs 
+#####  + /pdf 
    
-#### images/
-#### videos/
+####   + images/
+####   + videos/
     
 ## 2. Handlers/
-#### 2.1 errorHandlers.js
+#### errorHandlers.js
     
 Handler: (catchErrors) Catch Errors Handler <br>
 Desc:  catch url string errors
