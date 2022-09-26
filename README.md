@@ -50,6 +50,48 @@ Data manager
 ## 5. Models.js:
 ## 6. Modules.js:
 ## 7. Routes.js:
+### 7.1 Routes.js:
+    
+     ```
+     type: /post
+     Route: /post
+     Controller: inputData
+     ```
+    
+     ```
+     type: /post
+     Route: /update/:index_id/:file_id
+     Controller: updateData
+     ```
+    
+    
+     ```
+     type: /post
+     Route: /append/:index_id
+     Controller: appendGroupData
+     ```
+    
+    
+     ```
+     type: /post
+     Route: /post
+     Controller: inputData
+     ```
+    
+    
+     ```
+     type: /post
+     Route: /delete/:index_id
+     Controller: deleteAllData
+     ```
+    
+    
+     ```
+     type: /post
+     Route: /delete/:index_id/:file_id
+     Controller: deleteData
+     ```
+    
 ## 8. Utils.js:
 ## 9. Views.js:
 ## 10. .env.js:
