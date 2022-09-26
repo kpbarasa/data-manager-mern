@@ -132,24 +132,21 @@ Desc:   404 Page Error
 + upload-file.js:
     
 ## 9. Views.js:
-## 10. .env.js:
+    
+## 10. .env.js:   
++ ATLAS_URI=mongodb+srv://<UserName>:<password>.4p1ws.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
++ DEV_PORT=5000
++ productionPort = 8000
 
-      ```
-      ATLAS_URI=mongodb+srv://<UserName>:<password>.4p1ws.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-      DEV_PORT=5000
-      productionPort = 8000
-      ```
       
       
 ## 11. gitignore.js:
-
-      ```
-      ./assets
-      ./models
-      ./package-lock.json
-      ./package.json
-      .env
-      ```
++ ./assets
++ ./models
++ ./package-lock.json
++ ./package.json
++ .env
+    
 ## 12. Server.js:
 
 
