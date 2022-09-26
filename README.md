@@ -6,335 +6,63 @@ Data manager
 </p>
 
 
-# 1.NODE DEPENDENCIES 
+# 1. NODE DEPENDENCIES 
 <p>
 
 <b>Dependencies:<b>
 
-+  dotenv
-
-+  ejs
-
-+  express
-
-+  express-fileupload
-
-+  mongoose
-
++ "cors":
++ "crypto-md5"
++ "dotenv"
++ "ejs":
++ "express"
++ "express-fileupload"
++ "moment"
++ "mongoose"
++ "morgan"
++ "sharp"
++ "uuid"
++ "web-push"
 
 <b>Dev dependencies:<b> 
 
-+   nodemon
++ nodemon
 
 </p>
 
-
-# 2 Git ignore files 
-
-+  node_module
-
-+  .env
-
-
+# 2. Git ignore files 
++ /assets
++ /models
++ /package-lock.json
++ /package.json
++ .env
 
 
-# 3 env  
+
+
+
+# 5 APP COMPONENETS 
+
+## 1. Assets.js:
+## 2. Handlers.js:
+## 3. Middleware.js:
+## 4. Server.js:
+## 5. Models.js:
+## 6. Modules.js:
+## 7. Routes.js:
+## 8. Utils.js:
+## 9. Views.js:
+## 10. .env.js:
 
       ```
       ATLAS_URI=mongodb+srv://<UserName>:<password>.4p1ws.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-
+      DEV_PORT=5000
+      productionPort = 8000
       ```
-
-## 4 Server.js:
-####  Database connection string
-
-```
-const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { 
-  
-useNewUrlParser: true, useUnifiedTopology: true 
-
-},err => { 
-      if(err){
-        console.log('Error un able Connected to MongoDB!!!')
-      }
-      else{
-        console.log('Connected to MongoDB!!!')
-      }
-    }
-)
-
-const connection = mongoose.connection;
-connection.once('open', () => {
-  console.log("MongoDB database connection established successfully"); 
-})
-```
-
-# 5 APP COMPONENETS 
-## 5 Models:
-### 5.1 data_cat.model.js
-
-```
-Schema:
-  cat_title: {
-    type: String,
-    required: true, 
-    unique: true,
-    index:{unique: true}
-  }, 
-  data_cat_parent: {
-    type: String,
-    required: true,  
-  }, 
-```
-
-### 5.2 data_group.model.js
-
-```
-Schema:
-  group_title: {
-    type: String,
-    required: true, 
-    unique: true,
-    index:{unique: true}
-  },
-  group_content: {
-    type: String,
-    required: true,  
-  },
-  data_group_type: {
-    type: String,
-    required: true,  
-  }, 
-```
-### 5.3 data_type.model.js
-
-```
-Schema:
-  category_title: {
-    type: String,
-    required: true, 
-    unique: true,
-    index:{unique: true}
-  }, 
-```
-### 5.4 data.model.js
-
-```
-Schema:
-  data_tittle: {
-    type: String,
-    required: true, 
-    unique: true,
-    index:{unique: true}
-  },
-  data_usr_id: {
-    type: String,
-    required: true,  
-  },
-  data_group_type: {
-    type: String,
-    required: true,  
-  },
-  data_description: {
-    type: String, 
-    required: true  
-  },
-  data_value: {
-    type: String,
-    required: true, 
-    trim: true,
-    minlength: 3
-  },
-  data_type: {
-    type: String,
-    required: true, 
-    trim: true,
-    minlength: 3
-  },
-  data_date: {
-    type: Date,
-    required: true, 
-    trim: true,
-    minlength: 3
-  },
-  data_status: {
-    type: String,
-    required: true, 
-    trim: true,
-    minlength: 3
-  }, 
-```
-
-## 6 Views:
-
-### 6.1 Partial Views:
-
-#### 6.2 footer.ejs
-Footer View 
-
-#### 6.2 input_data.ejs
-Input data view
-
-#### 6.2 update_data.ejs
-Update data view
-
-### 6.2 get_data.ejs
-View data
-
-### 6.3 input_data.ejs
-Input data view
-
-#### 6.4 update_data.ejs
-Edit data view
-
-## 7 Controllers (data.js):
-### 7.1 viewGetdata
-   
-      ```
-      Response-:
-            {
-
-            } 
-       
-      ```
-
-### 7.2 viewInputData
-   
-      ```
-      Response-:
-            {
-
-            } 
-       
-      ```
-### 7.3 viewUpdateData
-   
-      ```
-      Response-:
-            {
-
-            } 
-       
-      ```
-### 7.4 viewSearchData
-   
-      ```
-      Response-:
-            {
-
-            } 
-       
-      ```
-### 7.5 getData
-   
-      ```
-      Response-:
-            {
-
-            } 
-       
-      ```
-### 7.6 updateData
-   
-      ```
-      Response-:
-            {
-
-            } 
-       
-      ```
-### 7.7 getMedia
-   
-      ```
-      Response-:
-            {
-
-            } 
-       
-      ```
-### 7.8 updatetData
-   
-      ```
-      Response-:
-            {
-
-            } 
-       
-      ```
-### 7.9 inputData
-   
-      ```
-      Response-:
-            {
-
-            } 
-       
-      ```
-### 7.10 trashtData
-   
-      ```
-      Response-:
-            {
-
-            } 
-       
-      ```
-### 7.11 restoretData
-   
-      ```
-      Response-:
-            {
-
-            } 
-       
-      ```
-### 7.12 deletData
-   
-      ```
-      Response-:
-            {
-
-            } 
-       
-      ```
-### 7.13 uploadMedia
-   
-      ```
-      Response-:
-            {
-
-            } 
-       
-      ```
-### 7.14 retrieveData
-   
-      ```
-      Response-:
-            { 
-
-            } 
-       
-      ```
-### 7.15 findData
-   
-      ```
-      Response-:
-            {
-            "_id": "61bb2bfd0e98b693c08ea222",
-            "data_tittle": "test image single",
-            "data_usr_id": "100001",
-            "data_group_type": "data-single",
-            "data_description": "test image single",
-            "data_value": "100001-10001-test image single-0000000-media.jpeg",
-            "data_type": "data-image",
-            "data_date": "2021-12-16T12:07:25.706Z",
-            "__v": 0,
-            "data_status": "published" 
-            } 
-       
-      ```
-
+      
+      
+## 11. gitignore.js:
+## 12. Server.js:
 
 ## 8 Routes
 
