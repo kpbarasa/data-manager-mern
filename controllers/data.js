@@ -159,7 +159,7 @@ const findData_index_type = async (req, res) => {
         console.log("dataType");
         console.log(dataType);
 
-        const getData = await data.find({ data_type: "jpeg"})
+        const getData = await data.find({ data_type: "jpeg" })
 
         // Check if datat exists 
         if (!getData) throw "data index does not exists.";
@@ -270,12 +270,12 @@ const inputData = async (req, res) => {
     const { data_title, data_text } = req.body;
     const data_file = req.files.data_file;
     const user_id = mongooseObj_Id;
-    
+
     // Get data type 
     var data_type = "";
     if (data_file.length > 0) data_type = data_file[0].mimetype.split("/")[1];
     else data_type = data_file.mimetype.split("/")[1];
-    
+
     // Sort  dta single or grouped
     var group_Id = md5("single")
     if (data_file.length > 0) group_Id = uuid.v4();
@@ -583,22 +583,22 @@ const getMedia_url = (req, res) => {
 }
 
 module.exports = {
+    getData,
     viewGetdata,
     viewInputData,
     viewUpdateData,
     viewSearchData,
-
-    getData,
-    getMedia_url,
-
-    findData_index,
-    findData_index_type,
+    
     findData,
     findData_file,
+    findData_index,
+    findData_index_type,
 
     inputData,
     appendGroupData,
     updateData,
     deleteAllData,
-    deleteData
+    deleteData,
+
+    getMedia_url
 }
