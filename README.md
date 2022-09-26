@@ -11,7 +11,7 @@ Features: <br>
 
 
 
-# 1. NODE DEPENDENCIES 
+# 1. Node Dependencies
 <p>
 
 <b>Dependencies:<b>
