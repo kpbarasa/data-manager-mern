@@ -54,7 +54,7 @@ Data manager
 ## 2. Handlers/:
 #### 2.1 errorHandlers.js
     
-Handler:  (catchErrors) Catch Errors Handler <br>
+    Handler: <i> (catchErrors) Catch Errors Handler</i> <br>
 Desc:  catch url string errors
     
 Handler: (mongoseErrors) MongoDB Validation Error Handler <br>
