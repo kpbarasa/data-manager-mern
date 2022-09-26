@@ -6,7 +6,7 @@
     3. Update Insert data with "index id" and "data id" req parameters
 </p>
 <p>
-    Simple mers appplication that allows the Upload of data (image/video/document files), index uploaded data id batabase for retrival 
+    Simple mers appplication that allows the Upload, udating and storage of data (image/video/document files), index uploaded data id batabase for retrival 
 </p>
 
 
