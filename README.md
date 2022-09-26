@@ -1,10 +1,4 @@
 # Data Manager MERN Stack
-
-<p>
-    1. Find data index returns index with "index id" req parameters
-    2. Find data, retuns all data with "index id" req parameters
-    3. Update Insert data with "index id" and "data id" req parameters
-</p>
 <p>
     Simple mers appplication that allows the Upload, udating and storage of data (image/video/document files), index uploaded data id batabase for retrival 
 </p>
