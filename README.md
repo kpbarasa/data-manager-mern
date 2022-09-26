@@ -2,6 +2,12 @@
 <p>
     Simple mers appplication that allows the Upload, udating and storage of data (image/video/document files), index uploaded data id batabase for retrival 
 </p>
+Data:(images, documents, videos) <br>
+Features: <br>
++ uplaod data (single / grouped)
++ Find data
++ Delete data
+
 
 
 # 1. NODE DEPENDENCIES 
