@@ -41,16 +41,30 @@ Data manager
 
 
 
-# 5 APP COMPONENETS 
+# 3 APP COMPONENETS 
 
-## 1. Assets.js:
+## 1. Assets/:
+#### documents 
+##### docs 
+##### pdf 
+   
+#### images
+#### videos
+    
 ## 2. Handlers.js:
+    
 ## 3. Middleware.js:
+    
 ## 4. Server.js:
-## 5. Models.js:
-## 6. Modules.js:
-## 7. Routes.js:
-#### 7.1 Routes.js:
+    
+## 5. Modules/: 
+#### 5.1 data-index.model.js
+#### 5.1 data-index-videos.model.js
+#### 5.1 data-index-images.model.js
+#### 5.1 data-index-documents.model.js
+   
+## 7. Routes/:
+#### 7.1 routes.js:
     
      ```
      type: /post
