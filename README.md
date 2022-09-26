@@ -45,11 +45,11 @@ Data manager
 
 ## 1. Assets/:
 #### documents/ 
-#####  + /docs 
-#####  + /pdf 
++ /docs 
++ /pdf 
    
-####   + images/
-####   + videos/
+#### images/
+#### videos/
     
 ## 2. Handlers/
 #### errorHandlers.js
@@ -78,10 +78,10 @@ Desc:   404 Page Error
 ## 4. Server.js:
     
 ## 5. Modules/: 
-#### data-index.model.js
-#### data-index-videos.model.js
-#### data-index-images.model.js
-#### data-index-documents.model.js
++ data-index.model.js
++ data-index-videos.model.js
++ data-index-images.model.js
++ data-index-documents.model.js
    
 ## 7. Routes/:
 #### 7.1 routes.js:
@@ -127,11 +127,11 @@ Desc:   404 Page Error
      ```
     
 ## 8. Utils.js:
-#### 8.1 database.js:
-#### 8.1 delete-file.js:
-#### 8.1 get-data-type.js:
-#### 8.1 response-format.js:
-#### 8.1 upload-file.js:
++ database.js:
++ delete-file.js:
++ get-data-type.js:
++ response-format.js:
++ upload-file.js:
     
 ## 9. Views.js:
 ## 10. .env.js:
