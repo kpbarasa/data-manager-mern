@@ -1,7 +1,15 @@
 # Data Manager MERN Stack
 
 <p>
-    Simple mpesa back end API that exposses endpoints that allow for Mpesa transactions Customer to business(C2B).
+    1. Find data index returns index with "index id" req parameters
+    2. Find data, retuns all data with "index id" req parameters
+    3. Update Insert data with "index id" and "data id" req parameters
+    
+    1. Upload data
+    2. Append group data using "index id" req parameters. 
+    3. Update data using "index id" req parameters.
+    4.Delete all data,data index, image/video/document files "index id" req parameters.
+    5. Delete data
 </p>
 
 
