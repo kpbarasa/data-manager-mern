@@ -51,7 +51,7 @@ Data manager
 #### 1.1 images
 #### 1.2 videos
     
-## 2. Handlers/:
+## 2. Handlers/
 #### 2.1 errorHandlers.js
     
 Handler: (catchErrors) Catch Errors Handler <br>
@@ -66,11 +66,14 @@ Desc:  In development we show good error messages so if we hit a syntax error or
 Handler:  (productionErrors) No stacktraces and error details are leaked to user <br>
 Desc:  No stacktraces and error details are leaked to user
 
-Handler:  notFound
+Handler:  notFound <br>
 Desc:   404 Page Error
     
     
 ## 3. Middleware.js:
+    
+Handler:  notFound <br>
+Desc:   404 Page Error
     
 ## 4. Server.js:
     
@@ -124,6 +127,12 @@ Desc:   404 Page Error
      ```
     
 ## 8. Utils.js:
+#### 8.1 database.js:
+#### 8.1 delete-file.js:
+#### 8.1 get-data-type.js:
+#### 8.1 response-format.js:
+#### 8.1 upload-file.js:
+    
 ## 9. Views.js:
 ## 10. .env.js:
 
