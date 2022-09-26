@@ -44,12 +44,12 @@ Data manager
 # 3 APP COMPONENETS 
 
 ## 1. Assets/:
-#### 1.1 documents 
-##### 1.1.2 docs 
-##### 1.1.3 pdf 
+#### documents/ 
+#####  /docs 
+#####  /pdf 
    
-#### 1.1 images
-#### 1.2 videos
+#### images/
+#### videos/
     
 ## 2. Handlers/
 #### 2.1 errorHandlers.js
@@ -78,10 +78,10 @@ Desc:   404 Page Error
 ## 4. Server.js:
     
 ## 5. Modules/: 
-#### 5.1 data-index.model.js
-#### 5.1 data-index-videos.model.js
-#### 5.1 data-index-images.model.js
-#### 5.1 data-index-documents.model.js
+#### data-index.model.js
+#### data-index-videos.model.js
+#### data-index-images.model.js
+#### data-index-documents.model.js
    
 ## 7. Routes/:
 #### 7.1 routes.js:
