@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://localhost:5000/assets/css/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="//cdn.ckeditor.com/4.17.1/full/ckeditor.js"></script>
+
+    <title>Data input</title>
+</head>
+
+<body>
+    <div class="container p-5">
+        <div class="row">
+            <div id="main_div" class="col-12">
+                <div class="card p-5">
+                    <div class="h3">update data here</div>
+
+                    <div class="form-group">
+
+                        <div class="row">
+                            <!-- Data type here  ========================================================================  -->
+                            <div class="col-2 pb-3">
+                                <!-- <label for="data_type" class="small">data type</label> -->
+                                <select onchange="filterDataType()" class="form-control" name="data_type" id="data_type"
+                                    required>
+                                    <option value="">select</option>
+                                    <option value="data-image">image</option>
+                                    <option value="data-video">video</option>
+                                    <option value="data-text">text</option>
+                                    <option value="data-document">document</option>
+                                </select>
+                            </div>
+
+                            <!-- Data Grid Layout  ========================================================================  -->
+                            <div class="col-2 pb-3">
+                                <!-- <label for="data_type" class="small">data</label> -->
+                                <select onchange="filterDataGroupType()" class="form-control" name="data_group_type"
+                                    id="data_group_type" required>
+                                    <option value="">select</option>
+                                    <option value="data-single">Single</option>
+                                    <option value="data-group">Group</option>
+                                </select>
+                            </div>
+
+                            <!-- Data title here  ========================================================================  -->
+                            <div class="col-7">
+                                <!-- <label for="data_type" class="small">data title</label> -->
+
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search title"
+                                        aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <button onclick="filterData()" class="btn btn-dark" type="button">Go</button>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <!-- Data title here  ========================================================================  -->
+                            <div class="col-1 text-right">
+                                <!-- <label for="data_type" class="small"></label> -->
+
+                                <div class="input-group">
+                                    <button onclick="clearFilterData()" class="btn btn-outline-dark btn-sm"
+                                        type="button">&times;</button>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="d-flex justify-content-between header">
+                            <div class="row">
+                                <div class="col-auto pb-3">
+                                    <span class="badge badge-default"><b>Results : </b></span>
+                                </div>
+                                <div class="col-auto pb-3">
+                                    <span for="data_type" class="badge badge-default">
+                                        <span id="filter_result_tittle"></span>
+                                        <span id="data_count"></span>
+                                    </span>
+                                </div>
+
+                                <!-- Data type here  ========================================================================  -->
+                                <div class="col-auto">
+                                    <span id="data_result_type" class="small"></span>
+                                </div>
+
+                                <!-- Data Grid Layout  ========================================================================  -->
+                                <div class="col-auto">
+                                    <span id="data_result_group" class="small"></span>
+                                </div>
+
+                                <!-- Data title here  ========================================================================  -->
+                                <div class="col-auto">
+                                    <span id="data_result_type" class="small"></span>
+                                </div>
+                            </div>
+
+                            <!-- Data Grid Layout  ========================================================================  -->
+                            <div class=" d-flex pb-3">
+                                <select class="form-control form-control-sm select-small" name="data_type" id="lay_out"
+                                    required>
+                                    <option value="data-video">grid</option>
+                                    <option value="data-image">row</option>
+                                </select>
+                                <!-- </div> -->
+
+
+                                <!-- Data Grid Layout  ========================================================================  -->
+                                <!-- <div class="col-auto pb-3"> -->
+                                <select class="form-control form-control-sm select-small" name="data_type" id="lay_out"
+                                    required>
+                                    <option value="A-Z">A-Z</option>
+                                    <option value="Z-A">Z-A</option>
+                                    <option value="date">Date</option>
+                                </select>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="div">
+
+                        <!-- Data content starts here  ======================================================================= -->
+                        <div class="form-group">
+                            <div id="main_search_result" class="row">
+
+
+
+
+
+
+                            </div>
+                        </div>
+
+                        <!-- Data content ends here ========================================================================== -->
+
+                        <input type="hidden" name="data_gallery" id="data_gallery">
+                        <input type="hidden" name="data_group" id="data_group" value="group-data">
+                    </div>
+
+                    <!-- Data description  input here  ======================================================================== -->
+                    <div class="form-group pb-4">
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="data_type">data description</label>
+                                <textarea class="form-control" name="input_data_description" id="input_data_description"
+                                    cols="30" rows="5"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <input type="submit" value="Upload"> -->
+                    <button class="btn btn-dark btn-lg btn-block" type="submit">update</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal_overlay" class="d-none">
+        <div class="modal-overlay">
+            <div class="modal-body">
+                <div class="modal-header text-left pb-2">
+                    <div class="btn-group btn-group-sm">
+                        <button type="button" class="btn btn-dark ">&plus; Add </button>
+                        <button type="button" class="btn btn-light ">&plus; Edit </button>
+                        <button type="button" class="btn btn-light ">&plus; All </button>
+                      </div>
+                    <a onclick="functionModalHide()" class="">&times;</a>
+                </div>
+                <div class="modal-content">
+
+                    <div class="row">
+                        <div id="modal-main" class="col-lg-9 col-md-9 col-12 text-center p-0">
+                            <div id="modal_gallery" class="row ">
+
+                            </div>
+                            <div class="row ">
+                                <div id="modal_single" class="col-12 text-center p-0"></div>
+                            </div>
+
+                            <div id="modal_document" class="row d-none">
+                                <div class="col-4 p-1">
+                                    <div class="modal-img"
+                                        style="background-image: url('https://images.unsplash.com/photo-1655836607283-a988e791e678?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');">
+                                    </div>
+                                    <h4> <span id="data_tittle">{res.data_tittle}</span> <span class="data_group_type"
+                                            id="">{res.data_group_type}</span> </h4>
+                                    <small class="d-block"> <b>Posted</b>: <span id="data_date">{res.data_date}</span>
+                                    </small>
+                                </div>
+                                <div class="col-4 p-1">
+                                    <div class="modal-img" style="background-image: url(''); "></div>
+                                    <h4> <span id="">{res.data_tittle} </span> <span class=""
+                                            id="">{res.data_group_type}</span> </h4>
+                                    <small class="d-block"> <b>Posted</b>: {res.data_date}</small>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                        <div id="" class="col-lg-3 col-md-3 col-12">
+                            <div class="d-block modal-sidebar">
+
+                                <div class="d-flex justify-content-start">
+                                    <div > <span id="modal_data_date"  class="small">{res.data_date}</span> </span> </div>
+                                </div>
+                                <div><span id="modal_data_tittle" class="h3">{res.data_tittle}</span> </div>
+                                <div><span id="modal_data_status" class="small">Stutas: {res.data_status}</span></div>
+                                <div class="small">type: <span id="modal_data_type">{res.data_status}</span></div>
+                                <div class="small">type : <span id="modal_data_group_type">{res.data_status}</span></div>
+                                <div class="small">description : <span id="modal_data_description">{res.data_status}</span></div>
+                                <div class="small">
+                                    <p id="data_date"></p>
+                                </div>
+
+
+                                <div id="modal_gallery_imgs" class="row d-none">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+            // CKEDITOR.replace( 'input_data_value_text' );
+    </script>
+
+    <!-- Latest compiled JavaScript -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="http://localhost:5000/assets/js/main.js"></script>
+    <script>
+
+
+        // display html results for uploaded files retrival ================================== 
+        const mainSearchResult = document.querySelector('#main_search_result')
+        const data_gallery = document.querySelector('#data_gallery')
+
+        //Data type ===========================================================================
+        const dataType = document.querySelector('#data_type')
+        const dataGroupType = document.querySelector('#data_group_type')
+        const dataCount = document.querySelector('#data_count')
+
+        //BTN =================================================================================
+        const addButtonTitle = document.querySelector('#add_btn_tittle')
+
+        //Results =============================================================================
+        const filterResultTitle = document.querySelector('#filter_result_tittle')
+
+        //Grid Layout =========================================================================
+        const layOut = document.querySelector('#lay_out')
+
+        //Form input Search ===================================================================
+        const inputDataTittle = document.querySelector('#input_data_tittle')
+
+        // Display div ======================================================================== 
+        const displayDataTextDiv = document.querySelector('#display_data_text_div')
+
+        // Display errors ===================================================================== 
+        const fetchErr = document.querySelector('#fetc_err')
+        const titleErr = document.querySelector('#title_err')
+
+        // modal Overlay ====================================================================== modal-main
+        const modalMain = document.querySelector('#modal-main')
+        const modlaOverlay = document.querySelector('#modal_overlay')
+        const modalGalleryImg = document.querySelector('#modal_gallery')
+        const modalSingleImg = document.querySelector('#modal_single')
+        const modalGalleryImgs = document.querySelector('#modal_gallery_imgs')
+        const modalDataTittle = document.querySelector('#modal_data_tittle')
+        const modalDataDate = document.querySelector('#modal_data_date')
+        const modalDataStatus = document.querySelector('#modal_data_status')
+        const modalDataGroupType = document.querySelector('#modal_data_group_type')
+        const modalDataType = document.querySelector('#modal_data_type')
+        const modalDataDescription = document.querySelector('#modal_data_description')
+
+
+        var dataResultType = ""
+        var dataResultGroup = ""
+        var Count_data = ""
+        var addBtnTitle = ""
+
+        var getGalleryImage = [""]
+        var filterResult = [""]
+
+
+        // Get data from data api 
+        const getMainData = async (id, data_type, data_group_type) => {
+
+            const userInfo = await axios.get('http://localhost:5000/api/v1/data//find/' + data_type + "/" + data_group_type)
+
+            const fiterdData = userInfo
+
+            dataCount.innerHTML = userInfo.data.length
+
+            userInfo.data.map((res, index) => {
+                if (id === "data-image")
+                    return mainSearchResult.innerHTML += `
+                <section id="pinBoot" class="col-4">
+    
+                    <article class="white-panel">
+                        <div class="card-img-doc" style="background-image: url('http://localhost:5000/assets/images/${res.data_value.split(",")[index]}');">
+    
+                        </div>
+    
+                        <div>
+                            <h4><a href="#"> ${res.data_tittle}</a></h4>
+                            <small class="d-block"> <b>Posted</b>: ${res.data_date}</small>
+                            <small class="d-block"><b>Type</b>: ${res.data_group_type}</small>
+                            <p class="p-img">${res.data_description}
+                            </p>
+
+                            <div class="d-flex justify-content-between">
+                                <span class="">
+                                    <button onclick=functionModalShow("${res._id}","image") type="button" class="btn btn-dark btn-circle">
+                                        <i class="glyphicon glyphicon-ok"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-circle">
+                                        <i class="glyphicon glyphicon-list"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-success btn-circle">
+                                        <i class="glyphicon glyphicon-link"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-info btn-circle">
+                                        <i class="fa fa-info"></i>
+                                    </button>
+                                </span>
+                                <span class="">
+                                    <button type="button" onclick=deleteDataType("${res._id}") class="btn btn-warning btn-circle">
+                                        <i class="glyphicon glyphicon-remove"></i> 
+                                        &times;
+                                    </button>
+                                </span>
+                            </div>
+    
+                        </div>
+    
+                    </article>
+    
+                </section>
+                `
+
+                else if (id === "data-video")
+                    return mainSearchResult.innerHTML += `
+                <section id="pinBoot" class="col-4">
+    
+                    <article class="white-panel">
+                        <video  height="240">
+                            <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+                            <source src="movie.ogg" type="video/ogg">
+                          Your browser does not support the video tag.
+                          </video>
+                        <div>
+                            <h4><a href="#"> ${res.data_tittle}</a></h4>
+                            <small class="d-block"> <b>Posted</b>: ${res.data_date}</small>
+                            <p class="p-img">${res.data_description}
+                            </p>
+
+                            <div class="d-flex justify-components-between">
+                                <span class="">
+                                    <button onclick=functionModalShow("${res._id}","video") type="button" class="btn btn-dark btn-circle">
+                                        <i class="glyphicon glyphicon-ok"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-circle">
+                                        <i class="glyphicon glyphicon-list"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-success btn-circle">
+                                        <i class="glyphicon glyphicon-link"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-info btn-circle">
+                                        <i class="fa fa-info"></i>
+                                    </button>
+                                </span>
+                                <span class="">
+                                    <button type="button" onclick=deleteDataType("${res._id}") class="btn btn-warning btn-circle">
+                                        <i class="glyphicon glyphicon-remove"></i>
+                                        &times;
+                                    </button>
+                                </span>
+                            </div>
+    
+                        </div>
+    
+                    </article>
+    
+                </section>
+                
+                `
+
+                else if (id === "data-document")
+                    return mainSearchResult.innerHTML += `
+                <section id="pinBoot" class="col-4">
+    
+                    <article class="white-panel">
+                        <div class="card-img-doc"
+                            style="background-image: url('http://localhost:5000/assets/images/${res.data_tittle}');">
+    
+                        </div>
+    
+                        <div>
+                            <h4><a href="#"> ${res.data_tittle}</a></h4>
+                            <small class="d-block"> <b>Posted</b>: ${res.data_date}</small>
+                            <small class="d-block"><b>Type</b>: ${res.data_group_type}</small>
+                            <p class="p-img">${res.data_description}
+                            </p>
+
+                            <div class="d-flex justify-content-between">
+                                <span class="">
+                                    <button onclick=functionModalShow("${res._id}","document") type="button" class="btn btn-dark btn-circle">
+                                        <i class="glyphicon glyphicon-ok"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-circle">
+                                        <i class="glyphicon glyphicon-list"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-success btn-circle">
+                                        <i class="glyphicon glyphicon-link"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-info btn-circle">
+                                        <i class="fa fa-info"></i>
+                                    </button>
+                                </span>
+                                <span class="">
+                                    <button type="button" onclick=deleteDataType("${res._id}") class="btn btn-warning btn-circle">
+                                        <i class="glyphicon glyphicon-remove"></i>
+                                        &times;
+                                    </button>
+                                </span>
+                            </div>
+    
+                        </div>
+    
+                    </article>
+    
+                </section>
+                `
+
+                else if (id === "data-text")
+                    return mainSearchResult.innerHTML += `
+                <section id="pinBoot" class="col-4">
+    
+                    <article class="white-panel">
+                        <div class="card-img-doc"
+                            style="background-image: url('http://localhost:5000/assets/images/${res.data_tittle}');">
+    
+                        </div>
+    
+                        <div>
+                            <h4><a href="#"> ${res.data_tittle}</a></h4>
+                            <small class="d-block"> <b>Posted</b>: ${res.data_date}</small>
+                            <small class="d-block"><b>Type</b>: ${res.data_group_type}</small>
+                            <p class="p-img">${res.data_description}
+                            </p>
+
+                            <div class="d-flex justify-components-between">
+                                <span class="">
+                                    <button onclick=functionModalShow("${res._id}") type="button" class="btn btn-dark btn-circle">
+                                        <i class="glyphicon glyphicon-ok"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-circle">
+                                        <i class="glyphicon glyphicon-list"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-success btn-circle">
+                                        <i class="glyphicon glyphicon-link"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-info btn-circle">
+                                        <i class="fa fa-info"></i>
+                                    </button>
+                                </span>
+                                <span class="">
+                                    <button type="button" onclick=deleteDataType("${res._id}") class="btn btn-warning btn-circle">
+                                        <i class="glyphicon glyphicon-remove"></i> ${res._id}
+                                        &times;
+                                    </button>
+                                </span>
+                            </div>
+    
+                        </div>
+    
+                    </article>
+    
+                </section>
+                `
+
+                else if (id === "")
+                    return mainSearchResult.innerHTML = ``
+            })
+
+            const groupDataCount = userInfo.data[0].data_value.split(",").length
+
+
+            const position = 1
+
+            // loadDataFromApi(fiterdData, "61aa3707d4393904d8139c97", position, groupDataCount, "", "")
+            getSpecificData("62bc32b2e80cf4220dac3967")
+
+        }
+
+        // Get Specific data from data api 
+        const getSpecificData = async (id) => {
+
+            const userInfo = await axios.get('http://localhost:5000/api/v1/data//find/' + id)
+
+            const fiterdData = userInfo
+
+            dataCount.innerHTML = userInfo.data.length
+
+        }
+
+        // Filter data type  
+        const filterDataType = () => {
+            filterResults(dataType.value)
+            dataResultType = dataType.value
+            document.querySelector("#data_result_type").innerHTML = dataResultType
+        }
+
+        // Filter Group data type  
+        const filterDataGroupType = () => {
+            if (dataGroupType.value === "data-single") {
+                dataResultGroup = dataGroupType.value
+                return document.querySelector("#data_result_group").innerHTML = dataResultGroup
+            }
+
+            else if (dataGroupType.value === "data-group") {
+                dataResultGroup = dataGroupType.value
+                return document.querySelector("#data_result_group").innerHTML = dataResultGroup
+            }
+
+        }
+
+        // Filter data  
+        const filterData = () => {
+
+            if (dataType.value === "" && dataGroupType.value === "") console.log("error")
+
+            else return getMainData(dataResultType, dataResultType, dataResultGroup)
+
+        }
+
+        // Filter data  
+        const filterResults = (tittle) => {
+            if (tittle === "data-image") return filterResultTitle.innerHTML = "images"
+            if (tittle === "data-video") return filterResultTitle.innerHTML = "videos"
+            if (tittle === "data-document") return filterResultTitle.innerHTML = "documents"
+            if (tittle === "data-text") return filterResultTitle.innerHTML = "text posts"
+
+        }
+
+        // Filter data type  
+        const clearFilterData = () => {
+
+            if (dataType.value != "" && dataGroupType.value != "") console.log("error")
+
+            else {
+                dataType.value = ""
+                return getMainData("", "", "")
+            }
+
+        }
+
+        // Delete data type  
+        const deleteDataType = async (id) => {
+            alert(id)
+            await axios.post('http://localhost:5000/api/v1/data/delete/' + id)
+                .then(() => console.log("Deleted"))
+                .catch(error => console.log("Error: " + error))
+
+        }
+
+        // Add data type  
+        const addDataType = () => {
+            //dataResultType = dataType.value
+            //document.querySelector("#data_result_type").innerHTML= dataResultType
+        }
+
+        // Delete data type  
+        const shareFB = () => {
+            //dataResultType = dataType.value
+            //document.querySelector("#data_result_type").innerHTML= dataResultType
+        }
+        // Delete data type  
+        const ShareTwitter = () => {
+            //dataResultType = dataType.value
+            //document.querySelector("#data_result_type").innerHTML= dataResultType
+        }
+
+        // Remove data from  upload list  
+        const rmvFrmGrpArr = async (e) => {
+
+            const userInfo = await axios.get('/api/v1/data/get')
+
+            const fiterdData = userInfo.data.filter(user => user._id == "61aa3707d4393904d8139c97")
+
+            const groupDataCount = userInfo.data[0].data_value.split(",").length
+
+            const position = e
+
+
+            loadDataFromApi(fiterdData, "61aa3707d4393904d8139c97", position, groupDataCount, "")
+
+        }
+
+        // Input file place image in img tag here 
+        const getUpldedGalleryiImg = async () => {
+
+
+            const data_gallery = document.querySelector('#data_img')
+            const data_img = document.querySelector('#myimage')
+            const fileList = []
+            const arrImageHolder = []
+            const displayUploadedImg = ""
+            var j = 0
+
+            const docMimeTypes = [
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            ]
+            const imgMimeTypes = [
+                'image/jpeg',
+                'image/png'
+            ]
+            const vidMimeTypes = [
+                'video/mp4'
+            ]
+
+            if (inputDataType.value == "document") {
+
+                if (docMimeTypes.includes(data_gallery.files[0].type)) {
+
+                    for (var i = 0; i < data_gallery.files.length; i++) {
+
+                        arrImageHolder.push('<label for="" class="col-6 small border rounded p-1 "> <a onclick="removeFromlist()" class="btn btn-sm btn-default">&times;</a> ' + data_gallery.files[i].name + '  </label>')
+
+                        data_img.innerHTML = arrImageHolder.join("")
+
+                    }
+
+                }
+
+                else {
+
+                    data_gallery.value == ""
+
+                    fileInputErr.innerHTML = "error upload pdf docx and excel documents only"
+
+                }
+
+            }
+
+            else if (inputDataType.value == "video") {
+
+                if (vidMimeTypes.includes(data_gallery.files[0].type)) {
+
+                    for (var i = 0; i < data_gallery.files.length; i++) {
+
+                        //   arrImageHolder.push('<label for="" class="d-block small border rounded p-1 ">'+data_file_input.files[i].name+' <a onclick="removeFromlist()" class="btn btn-sm btn-default">&times;</a> </label>')
+
+                        //   data_img.innerHTML =  arrImageHolder.join("") 
+                        //   fileInputErr.innerHTML = ""
+
+
+                        fileList.push(data_gallery.files[i])
+
+                        var selectedFile = fileList[i];
+
+                        var reader = new FileReader();
+
+                        reader.readAsDataURL(data_gallery.files[i])
+                        reader.onload = function (e) {
+
+                            console.log(e.target.result)
+
+                            arrImageHolder.push(
+                                '<div class="col-3 float-left">' +
+                                '<video height="100px" controls>' +
+                                '<source src="' + e.target.result + '" type="video/mp4">' +
+                                'Your browser does not support HTML video.' +
+                                '</video>' +
+                                '<a onclick="removeFromlist()" class="btn btn-sm btn-default">&times; video ' + i + '</a> ' +
+                                '</div>')
+
+                            data_img.innerHTML = arrImageHolder.join("")
+                        }
+
+                    }
+
+                }
+
+                else {
+
+                    data_file_input.value == ""
+                    fileInputErr.innerHTML = "error upload pdf docx and excel documents only"
+
+                }
+
+            }
+
+            else if (inputDataType.value == "image-gallery") {
+
+                if (imgMimeTypes.includes(selectedFile.type)) {
+
+                    for (var i = 0; i < data_file_input.files.length; i++) {
+
+                        fileList.push(data_file_input.files[i])
+
+                        var selectedFile = fileList[i];
+
+                        var reader = new FileReader();
+
+                        reader.readAsDataURL(data_file_input.files[i])
+                        reader.onload = function (e) {
+
+                            console.log(e.target.result)
+
+                            arrImageHolder.push('<div class="col-6 " style="background:url(' + e.target.result + '); height: 100px; width: 100px; background-size: cover; background-position: top center; float: left;"></div>')
+
+                            data_img.innerHTML = arrImageHolder.join("")
+                        }
+
+                    }
+
+                }
+                else { fileInputErr.innerHTML = "error upload jpg jpeg and png documents only" }
+            }
+
+            var selectedFile = data_gallery.value;
+            const userInfo = await axios.get('/api/v1/data/get')
+            const fiterdData = userInfo.data.filter(user => user._id == "61aa3707d4393904d8139c97")
+
+        }
+
+        var galleryId;
+
+        var galleryImagesSingle;
+
+        const galleryFunctionHandlesSingleImg = (id) => {
+
+            var singleImg = ""
+
+            if (id !== "") {
+
+                //singleImg = `
+                //<div class="modal-galleri-img-lg p-0 m-0 pull-left">
+                //    <div class="modal-img-lg" style="background-image: url('/assets/images/${id}');"></div>
+                //</div>
+                //`;
+
+                singleImg = `
+                    <img src="/assets/images/${id}" alt="" id="" class="gallery-img-single">
+                `;
+                return modalSingleImg.innerHTML = singleImg
+
+            }
+            else {
+
+                // singleImg = `
+                // <div class="modal-galleri-img-lg p-0 m-0 pull-left">
+                //    <div class="modal-img-lg" style="background-image: url('/assets/images/111111-222222-0-My gallery-0000000-media.jpeg');"></div>
+                //</div>
+                //`;
+
+                singleImg = `
+                    <img src="/assets/images/111111-222222-0-My gallery-0000000-media.jpeg" alt="" id="" class="">
+                `;
+                return modalSingleImg.innerHTML = singleImg
+            }
+
+        }
+
+        const galleryFunctionHandlesSingleVideo = (id) => {
+
+            var singleImg = ""
+
+            if (id !== "") {
+
+                //singleImg = `
+                //<div class="modal-galleri-img-lg p-0 m-0 pull-left">
+                //    <div class="modal-img-lg" style="background-image: url('/assets/images/${id}');"></div>
+                //</div>
+                //`;
+
+                singleImg = `
+                <div class="col-lg-12 col-md-12 col-12 m-0 pull-left">
+                    <video width="100%" height="70%" controls>
+                        <source src="http://localhost:5000/assets/images/${id}" type="video/mp4">
+                        <source src="http://localhost:5000/assets/images/${id}" type="video/ogg">
+                      </video>
+                </div>
+                `;
+                return modalSingleImg.innerHTML = singleImg
+
+            }
+            else {
+
+                // singleImg = `
+                // <div class="modal-galleri-img-lg p-0 m-0 pull-left">
+                //    <div class="modal-img-lg" style="background-image: url('/assets/images/111111-222222-0-My gallery-0000000-media.jpeg');"></div>
+                //</div>
+                //`;
+
+                singleImg = `
+                <div  class="col-lg-12 col-md-12 col-12  m-0 pull-left">
+                    <video width="100%" height="180" controls>
+                        <source src="http://localhost:5000/assets/images/" type="video/mp4">
+                        <source src="http://localhost:5000/assets/images/" type="video/ogg">
+                      </video>
+                </div>
+                `;
+                return modalSingleImg.innerHTML = singleImg
+            }
+
+        }
+
+        const galleryFunctionHandlesSingleDocument = (id) => {
+
+            var singleImg = ""
+
+            if (id !== "") {
+
+                singleImg = `
+                <div class="col-lg-12 col-md-12 col-12 m-0 pull-left">
+                    <iframe src="https://drive.google.com/viewerng/viewer?url=url_of_pdf?pid=explorer&efh=false&a=v&chrome=false&embedded=true" embedded=true>${id}</iframe>
+                    <iframe src="https://docs.google.com/viewer?embedded=true&url=http://localhost:5000/assets/images/${id}" style="width: 100%; height: 400px; border: none;"></iframe>
+                </div>
+                `;
+                return modalSingleImg.innerHTML = singleImg
+
+            }
+            else {
+
+                singleImg = `
+                <div  class="col-lg-12 col-md-12 col-12  m-0 pull-left">
+                    id
+                </div>
+                `;
+                return modalSingleImg.innerHTML = singleImg
+            }
+
+        }
+
+
+        const galleryFunctionSetGallery = (id) => {
+            modalGalleryImgs.classList.remove("d-none")
+            modalGalleryImg.classList.add("d-none")
+            galleryFunctionHandlesSingleImg(id)
+
+
+        }
+
+        const galleryFunctionSetGalleryVideo = (id) => {
+            modalGalleryImgs.classList.remove("d-none")
+            modalGalleryImg.classList.add("d-none")
+            galleryFunctionHandlesSingleVideo(id)
+
+
+        }
+
+        const galleryFunctionSetGalleryDocument = (id) => {
+            modalGalleryImgs.classList.remove("d-none")
+            modalGalleryImg.classList.add("d-none")
+            galleryFunctionHandlesSingleDocument(id)
+
+
+        }
+
+        const functionModalShow = async (id, type) => {
+            console.log(type)
+
+            var galleryImagesLG;
+            var galleryImages;
+
+            const userInfo = await axios.get('http://localhost:5000/api/v1/data/find/' + id)
+
+            modlaOverlay.classList.remove("d-none")
+            if (type === "image") {
+
+                galleryImages = userInfo.data[0].data_value.split(",").map((res, index) => {
+                    console.log(res.toString(""))
+                    return `
+                    <div class="modal-galleri-img p-0 m-0 pull-left">
+                        <div onclick=galleryFunctionHandlesSingleImg("${res}") class="modal-img" style="background-image: url('http://localhost:5000/assets/images/${res}');">
+                        </div>
+                    </div>
+                    `
+                })
+
+                galleryImagesLG = userInfo.data[0].data_value.split(",").map((res, index) => {
+                    console.log(res.toString(""))
+                    return `
+                                <div class="col-lg-3 col-md-4 col-6 p-0 m-0 pull-left">
+                                    <div onclick=galleryFunctionSetGallery("${res}") class="modal-img" style="background-image: url('http://localhost:5000/assets/images/${res}');">
+                                        <div class="gallery-overlay"></div>
+                                    </div>
+                                </div>
+                                `
+                })
+                modalGalleryImg.innerHTML = galleryImagesLG.join(" ")
+                modalGalleryImgs.innerHTML = galleryImages.join(" ")
+            }
+
+            if (type === "video") {
+
+                const galleryVideos = userInfo.data[0].data_value.split(",").map((res, index) => {
+                    console.log(res.toString(""))
+                    return `
+                                <div onclick=galleryFunctionHandlesSingleVideo("${res}")  class="col-lg-6 col-md-4 col-6  m-0 pull-left">
+                                    <video width="100%" height="80">
+                                        <source src="http://localhost:5000/assets/images/${res}" type="video/mp4">
+                                        <source src="http://localhost:5000/assets/images/${res}" type="video/ogg">
+                                      </video>
+                                </div>
+                                <div class="col-lg-6 col-md-4 col-6 p-0 m-0 pull-left">
+                                    <div><span id="modal_data_status" class="small">Stutas:</span></div>
+                                    <div class="small">type: <span id="modal_data_type"></span></div>
+                                    <div class="small">type : <span id="modal_data_group_type"></span></div>
+                                </div>
+                                `
+                })
+
+                const galleryVideosLG = userInfo.data[0].data_value.split(",").map((res, index) => {
+                    console.log(res.toString(""))
+                    return `
+                                <div onclick=galleryFunctionSetGalleryVideo("${res}") class="col-lg-4 col-md-4 col-6  m-0 pull-left">
+                                    <video width="100%" height="180">
+                                        <source src="http://localhost:5000/assets/images/${res}" type="video/mp4">
+                                        <source src="http://localhost:5000/assets/images/${res}" type="video/ogg">
+                                      </video>
+                                </div>
+                                `
+                })
+                 modalGalleryImg.innerHTML = galleryVideosLG.join(" ")
+                 modalGalleryImgs.innerHTML = galleryVideos.join(" ")
+
+            }
+            
+
+            if (type === "document") {
+
+                const galleryVideos = userInfo.data[0].data_value.split(",").map((res, index) => {
+                    console.log(res.toString(""))
+                    return `
+                                <div onclick=galleryFunctionHandlesSingleVideo("${res}")  class="col-lg-6 col-md-4 col-6  m-0 pull-left">
+                                    ${res}
+                                </div>
+                                <div class="col-lg-6 col-md-4 col-6 p-0 m-0 pull-left">
+                                    <div><span id="modal_data_status" class="small">Stutas:</span></div>
+                                    <div class="small">type: <span id="modal_data_type"></span></div>
+                                    <div class="small">type : <span id="modal_data_group_type"></span></div>
+                                </div>
+                                `
+                })
+
+                const galleryVideosLG = userInfo.data[0].data_value.split(",").map((res, index) => {
+                    console.log(res.toString(""))
+                    return `
+                                <div onclick=galleryFunctionSetGalleryDocument("${res}") class="col-lg-4 col-md-4 col-6  m-0 pull-left">
+                                    ${res}
+                                </div>
+                                `
+                })
+                 modalGalleryImg.innerHTML = galleryVideosLG.join(" ")
+                 modalGalleryImgs.innerHTML = galleryVideos.join(" ")
+
+            }
+
+            modalDataTittle.innerHTML = userInfo.data[0].data_tittle
+            modalDataDate.innerHTML = userInfo.data[0].data_date
+            modalDataStatus.innerHTML = userInfo.data[0].data_status
+            modalDataType.innerHTML = userInfo.data[0].data_type
+            modalDataGroupType.innerHTML = userInfo.data[0].data_group_type
+            modalDataDescription.innerHTML = userInfo.data[0].data_description
+        }
+
+
+        const functionModalHide = async (id) => {
+
+            modlaOverlay.classList.add("d-none")
+            modalGalleryImgs.classList.add("d-none")
+            modalGalleryImg.classList.add("d-none")
+            modalGalleryImg.classList.remove("d-none")
+            modalMain.classList.remove("d-none")
+            modalSingleImg.innerHTML = ""
+        }
+
+        const ModalGallery = (getData) => {
+
+            return getData.map(rs => {
+                `
+            <div class="col-4 p-1">
+                <div class="modal-img" style="background-image: url('https://images.unsplash.com/photo-1655836607283-a988e791e678?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'); "></div>
+            </div>
+            `
+
+            })
+
+        }
+
+        window.onload = getMainData()
+
+    </script>
+
+    <script>
+
+        const authTitle = async () => {
+            try {
+                const userInfo = await axios.get('/api/v1/data/get')
+
+                const infoArr = userInfo.data.map(user => user.data_tittle)
+
+                if (infoArr.includes(getDataTittle.value)) {
+
+                    titleErr.classList.add('text-danger')
+                    titleErr.innerHTML = "Title aready uploaded please try again"
+
+                } else {
+
+                    titleErr.classList.add('text-success')
+
+                    console.log(infoArr)
+
+                    return userInfo.data,
+
+                        titleErr.innerHTML = "Title success"
+
+                }
+
+
+            } catch (error) {
+                //   userName.value = `<div class="alert alert-danger">Can't Fetch Datas</div>`
+            }
+        }
+
+
+        const loadDataFromApi = async (mainData, dataId, arrPosition, groupDataCount, newData) => {
+
+            try {
+
+                console.log(mainData[0].data_type)
+                // get values for form input here 
+                inputDataType.value = mainData[0].data_type
+                getDataTittle.value = mainData[0].data_tittle
+                inputDataDescription.value = mainData[0].data_description
+
+                const getGalleryImageData = mainData.map(user => user.data_value.split(",").filter(dataz => dataz.split("")[0] != arrPosition).map(dataz => dataz))
+
+                const testImageData = mainData.map(user => user.data_value.split(",").filter(dataz => !dataz.split("")[0].includes(2)).map(dataz => dataz))
+
+                if (mainData[0].data_type == "image-gallery") {
+
+                    // Display uploaded image tag here 
+                    getGalleryImage = mainData.map(user => user.data_value.split(",").splice(arrPosition, groupDataCount).map(
+                        dataz => '<img class="m-2" src="../../data/get/media/' + dataz + '" width="100px" height="150px" alt="" >'
+                            + '<a class="btn btn-default btn-sm" onclick="rmvFrmGrpArr(1,1)" type=""> <input type="checkbox" name="" id="" value="" > remove &times;</a>'))
+
+                    // Display uploaded image holder here
+                    filterResult = mainData.map(user => '<div  class="col-lg-12 mb-4 pl-4">' +
+                        '<h3 class="d-block">' + user.data_tittle + '</h3>' +
+                        '<h6 class="  d-block">data type: ' + user.data_type + ' date posted: ' + user.data_date + '</h6>' +
+                        '<h6 class=" d-block">'
+                        + getGalleryImage.join("") +
+                        '</h6>' +
+                        '</div>')
+
+                    // push results to array
+                    getGalleryImageData[0].push(newData)
+
+                    resultContent.innerHTML = filterResult
+
+                }
+
+                else if (mainData[0].data_type == "video") {
+
+                    // Display uploaded image tag here 
+                    getGalleryImage = mainData[0].data_value.split(",").map(data =>
+                        '<div class="col-4 float-left">' +
+                        '<video width="100%" controls>' +
+                        '<source src="../../data/get/media/' + data + '" type="video/mp4">' +
+                        'Your browser does not support HTML video.' +
+                        '</video>' +
+                        '<a onclick="removeFromlist()" class="btn btn-sm btn-default">&times; video ' + data + ' remove</a> ' +
+                        '</div>'
+
+                    )
+
+                    // push results to array
+                    getGalleryImageData[0].push(newData)
+
+                    resultContent.innerHTML = getGalleryImage
+
+                    inputDataValueText.value = mainData[0].data_value
+
+                }
+
+                else if (mainData[0].data_type == "document") {
+
+                    console.log(mainData[0].data_value)
+                    // Display uploaded image tag here 
+                    getGalleryImage = mainData.map(user => user.data_value.split(",").map(
+                        dataz => '<label for="" class="d-block small border rounded p-1 col-lg-6 col-12"><a onclick="removeFromlist()" class="btn btn-sm btn-default pr-2">&times;</a> ' + dataz + '</label>'))
+
+                    // push results to array
+                    getGalleryImageData[0].push(newData)
+
+                    resultContent.innerHTML = getGalleryImage
+
+                }
+
+                else if (mainData[0].data_type == "link") {
+
+                    inputDataValueLink.value = mainData[0].data_value
+
+                }
+
+                else if (mainData[0].data_type == "text") {
+
+                    inputDataValueText.value = mainData[0].data_value
+
+                }
+
+
+            } catch (error) {
+                //   alert(`<p class="alert alert-danger">Can't Fetch Datas</p>`)
+            }
+        }
+
+
+        // HIDE and SHOW  file data type after select 
+        function getDatatype() {
+
+            var dataTextDiv = document.getElementById('data_text_div');
+            var dataText = document.getElementById('data_text');
+
+            var dataImg = document.getElementById('data_img');
+            var dataGallery = document.getElementById('data_file_input');
+            var dataImgGalleryDiv = document.getElementById('data_img_gallery_div');
+
+            var dataLinktDiv = document.getElementById('data_link_div');
+            var dataLink = document.getElementById('data_link');
+
+            // show only textbox, input 
+            if (dataType.value == "data-text") {
+                data_file_input.value = ""
+                uploadDatatatement.innerHTML = "Input text data"
+                dataImgGalleryDiv.classList.add('d-none');
+                dataTextDiv.classList.remove('d-none');
+                dataLinktDiv.classList.add('d-none');
+                document.getElementById('main_div').classList.remove('col-12')
+                document.getElementById('main_div').classList.add('col-12')
+            }
+
+            // show only file, input 
+            if (dataType.value == "data-image" || dataType.value == "data-video" || dataType.value == "data-document") {
+                data_file_input.value = ""
+                dataTextDiv.classList.add('d-none');
+                dataImgGalleryDiv.classList.remove('d-none');
+                dataGallery.removeAttribute('disabled');
+                dataLinktDiv.classList.add('d-none');
+
+                if (dataType.value == "data-image") { uploadDatatatement.innerHTML = "upload image" }
+                if (dataType.value == "data-video") { uploadDatatatement.innerHTML = "upload video" }
+                if (dataType.value == "data-document") { uploadDatatatement.innerHTML = "upload document" }
+            }
+
+            else {
+                data_file_input.value = ""
+                document.getElementById('main_div').classList.add('col-12')
+                document.getElementById('main_div').classList.remove('col-12')
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

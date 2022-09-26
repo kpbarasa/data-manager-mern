@@ -1,0 +1,175 @@
+    /*
+    Ref:
+    Thanks to:
+    http://www.jqueryscript.net/layout/Simple-jQuery-Plugin-To-Create-Pinterest-Style-Grid-Layout-Pinterest-Grid.html
+    */
+    .bg-back{
+      background: #000000 !important;
+    }
+    .select-small{
+        font-size: 0.8em !important;
+        border: none !important;
+
+    }
+
+.pull-left{
+    float: left !important;
+}
+    h4,.h4{
+        font-size: 1em !important;
+    }
+    .small{
+        font-size: 0.8em !important;
+    }
+    .badge{
+        font-weight: 400 !important;
+    }
+    body {
+        background-color:#eee;   
+    }    
+    article{
+        width: 100%;
+        float: left;
+    }
+    #pinBoot {
+        position: relative;
+        max-width: 100%;
+        width: 100%;
+    }
+    .card-img {
+        background-size: cover;
+        width: 100%;
+        max-width: 100%;
+        height: 300px;
+    }
+    .card-img-doc {
+        background-size: cover;
+        width: 100%;
+        max-width: 100%;
+        height: 300px;
+    }
+    .p-img{
+        font-size: 0.8em;
+        font-weight: 400;
+    }
+    .white-panel {
+        /* position: absolute; */
+        background: white;
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+        padding: 10px;
+        margin-bottom: 0.4em;
+    }
+    /*
+    stylize any heading tags withing white-panel below
+    */
+    
+    .white-panel h1 {
+        font-size: 1em;
+    }
+    .white-panel h1 a {
+        color: #A92733;
+    }
+    .white-panel:hover {
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+        /* margin-top: -5px; */
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-circle {
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        padding: 6px 0;
+        font-size: 12px;
+        line-height: 1.428571429;
+        border-radius: 15px;
+      }
+      .btn-circle.btn-lg {
+        width: 50px;
+        height: 50px;
+        padding: 10px 16px;
+        font-size: 18px;
+        line-height: 1.33;
+        border-radius: 25px;
+      }
+      .btn-circle.btn-xl {
+        width: 70px;
+        height: 70px;
+        padding: 10px 16px;
+        font-size: 24px;
+        line-height: 1.33;
+        border-radius: 35px;
+      }
+
+      .modal-overlay{
+        z-index: 1000;
+        padding: 2% 3%;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.812);
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+      }
+      .modal-body{
+        padding: 2em;
+        width: 100%;
+        height: 100%;
+        background: white;
+      }
+      .modal-header{
+        padding: 0rem 1em 0rem 0em !important;
+      }
+      .modal-footer{
+        padding: 0rem 1em 0rem 0em !important;
+      }
+      .modal-content{
+        padding: 0.5em 2em;
+        border: none !important;
+      }
+      .modal-img{
+        height: 100px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin: 0.2em;
+      }
+      
+      .modal-img-lg {
+        /* width: auto; */
+        height: 450px;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      .modal-galleri-img{
+        width: 33.3%;
+        float: left !important;
+      }
+      .modal-galleri-img-lg{
+        width: 100%;
+        float: left !important;
+      }
+      .modal-sidebar{
+        overflow-y: hidden;
+        overflow-x: hidden;
+        height: 500px;
+      }
+      .gallery-overlay{
+        z-index: 999;
+        background-color: rgba(0, 0, 0, 0);
+        width: 100%;
+        height: 100%;
+      }
+      .gallery-overlay:hover{
+        background-color: rgba(0, 0, 0, 0.436);
+        width: 100%;
+        height: 100%;
+        /* transition: 30s; */
+      }
+      .gallery-img-single{
+        height: 540px;
+        max-height: 540px;
+      }

@@ -1,0 +1,633 @@
+<!-- Latest compiled JavaScript -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+    integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+    crossorigin="anonymous"></script>
+
+
+<script>
+
+    const arrImageHolder = []
+    const data_file_input = document.querySelector('#data_file_input')
+    const data_img = document.querySelector('#myimage')
+    const fileInputErr = document.querySelector('#file_input_err')
+
+    var dataGroupType = document.querySelector('#data_group_type')
+    var uploadFileStatement = document.querySelector('#upload_file_statement')
+    var uploadDatatatement = document.querySelector('#upload_data_statement')
+
+    // form Inputs
+    var dataType = document.getElementById('data_type');
+
+    function removeFromlist() {
+        alert("HHHHHHHHHhh")
+        arrImageHolder.splice(1, 1)
+        data_img.innerHTML = arrImageHolder.join("")
+        console.log(arrImageHolder.join(","));
+    }
+
+    // Change file input from multiple t single on data type select 
+    function getGroupType() {
+
+        if (dataGroupType.value == "data-single") {
+
+            data_file_input.removeAttribute('multiple')
+            uploadFileStatement.innerHTML = "single"
+
+        }
+
+        else if (dataGroupType.value == "data-group") {
+
+            data_file_input.setAttribute("multiple", "")
+            uploadFileStatement.innerHTML = "multiple"
+
+        }
+    }
+
+    // HIDE and SHOW  file data type after select 
+    function getDatatype() {
+
+        var dataTextDiv = document.getElementById('data_text_div');
+        var dataText = document.getElementById('data_text');
+
+        var dataImg = document.getElementById('data_img');
+        var dataGallery = document.getElementById('data_file_input');
+        var dataImgGalleryDiv = document.getElementById('data_img_gallery_div');
+
+        var dataLinktDiv = document.getElementById('data_link_div');
+        var dataLink = document.getElementById('data_link');
+
+        // show only textbox, input 
+        if (dataType.value == "data-text") {
+            data_file_input.value = ""
+            uploadDatatatement.innerHTML = "Input text data"
+            dataImgGalleryDiv.classList.add('d-none');
+            dataTextDiv.classList.remove('d-none');
+            dataLinktDiv.classList.add('d-none');
+            document.getElementById('main_div').classList.remove('col-6')
+            document.getElementById('main_div').classList.add('col-12')
+        }
+
+        // show only file, input 
+        if (dataType.value == "data-image" || dataType.value == "data-video" || dataType.value == "data-document") {
+            data_file_input.value = ""
+            dataTextDiv.classList.add('d-none');
+            dataImgGalleryDiv.classList.remove('d-none');
+            dataGallery.removeAttribute('disabled');
+            dataLinktDiv.classList.add('d-none');
+
+            if (dataType.value == "data-image") { uploadDatatatement.innerHTML = "upload image" }
+            if (dataType.value == "data-video") { uploadDatatatement.innerHTML = "upload video" }
+            if (dataType.value == "data-document") { uploadDatatatement.innerHTML = "upload document" }
+        }
+
+        else {
+            data_file_input.value = ""
+            document.getElementById('main_div').classList.add('col-6')
+            document.getElementById('main_div').classList.remove('col-12')
+        }
+    }
+
+</script>
+
+<script>
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+<script>
+
+
+    // Get data from data api 
+    const getMainData = async () => {
+
+        const mainData = await axios.get('/api/v1/data/get')
+        return mainData
+
+    }
+    // Get id to show specific data 
+    function getDataIDForShow(iD) {
+        document.getElementById("demo").innerHTML = "Id: " + iD;
+        gegetdataMain(iD)
+    }
+
+    // Get id to show specific data 
+    function getDataIDForEditing(iD) {
+        gegetdataMain(iD)
+    }
+
+
+    // Sidebar navigation here ==========================================================================================
+    // ==================================================================================================================
+
+    myVal = document.getElementById('data_content')
+
+    function menuNav(e) {
+
+        if (e == 'data-image') {
+            myVal.classList.remove('d-none')
+            fetchPublishedData(e, "published")
+        }
+
+        else if (e == 'data-video') {
+            myVal.classList.remove('d-none')
+            fetchPublishedData(e, "published")
+        }
+
+        else if (e == 'data-document') {
+            myVal.classList.remove('d-none')
+            fetchPublishedData(e, "published")
+        }
+
+        else if (e == 'data-text') {
+            myVal.classList.remove('d-none')
+            fetchPublishedData(e, "published")
+        }
+
+        else if (e == 'data-trash') {
+            myVal.classList.remove('d-none')
+            fetchTrashedData(e, "trash")
+        }
+    }
+
+</script>
+<script>
+
+    const data_id = document.querySelector('#data_id')
+    const datContent = document.querySelector('#data_content')
+    const dataList = document.querySelector('#data-list')
+    const textContent = document.querySelector('#text-content')
+
+    // display html results for uploaded files retrival ================================== 
+    const modalDatatContent = document.querySelector('#result_content')
+    const resultContent = document.querySelector('#data_content')
+    const data_gallery = document.querySelector('#data_gallery')
+
+    // Form inputs ========================================================================
+    const inputDataType = document.querySelector('#input_data_type')
+    const getDataTittle = document.querySelector('#input_data_tittle')
+    const inputDataValueText = document.querySelector('#input_data_value_text')
+    const inputDataDescription = document.querySelector('#input_data_description')
+    const inputDataValueLink = document.querySelector('#input_data_value_link')
+
+    // Display div ======================================================================== 
+    const displayDataTextDiv = document.querySelector('#display_data_text_div')
+
+    // Display errors ===================================================================== 
+    const fetchErr = document.querySelector('#fetc_err')
+    const titleErr = document.querySelector('#title_err')
+
+    var dataID = ["61aa3707d4393904d8139c97"]
+    var getGalleryImage = [""]
+    var filterResult = [""]
+
+
+    // Get data from data api 
+    const gegetdataMain = async (ID) => {
+
+        const dataRaw = await axios.get('/api/v1/data/get')
+
+        const dataFilterd = dataRaw.data.filter(user => user._id == ID)
+
+        const groupDataCount = dataRaw.data[0].data_value.split(",").length
+
+        const position = 1
+
+        // Load data for editing
+        loadDataFromApi(dataFilterd, dataID, position, groupDataCount, "", "")
+
+        // Load data for display
+        loadDashDataFromApi(dataFilterd)
+
+        console.log(groupDataCount)
+        console.log(dataFilterd)
+    }
+
+    // Main data display 
+    const fetchPublishedData = async (menuNavLink, dataStatus) => {
+
+        console.log(dataStatus);
+
+        try {
+
+            const dataRaw = await getMainData()
+
+            const infoTitleList = dataRaw.data.map(user => '<li id="' + user.data_type + '"  class="h6"> <a  onclick="menuNav(' + user.data_type + ')"  href="http://">' + user.data_type + '</a> </li>')
+
+            const dataFilterd = dataRaw.data.filter(user => user.data_type == menuNavLink && user.data_status == dataStatus)
+
+            const filterResult = dataFilterd.map(user => '<div id="data_card"  class="col-lg-3 mb-4 pl-4" >' +
+                '<h6 class="d-block">' + user.data_tittle + '</h6>' +
+                '<h6 class="d-block small">' + user.data_date + '</h6>' +
+                '<h6 class="d-block small"> ' + user.data_type + ', ' + user.data_group_type + '</h6>' +
+                `<div class=" small"> <a  onclick='getDataIDForShow("${user._id}")'  class="" href="http://"  data-toggle="modal" data-target="#exampleModal"> read more</a> | <a  onclick='getDataIDForEditing("` + user._id + `")'  class="" href="http://"  data-toggle="modal" data-target="#exampleModal"href="http://">edit</a> | <a  class="" href="http://localhost:5000/api/v1/data/trash/${user._id}">trash</a> </div>` +
+                '</div>')
+
+            datContent.innerHTML = filterResult
+
+            let x = (infoTitleList) => infoTitleList.filter((v, i) => infoTitleList.indexOf(v) === i)
+            x(infoTitleList)
+
+            dataList.innerHTML = x(infoTitleList)
+
+
+
+
+        } catch (error) {
+            //   alert(`<p class="alert alert-danger">Can't Fetch Datas</p>`)
+        }
+    }
+
+    // Main data display 
+    const fetchTrashedData = async (menuNavLink, dataStatus) => {
+
+        try {
+
+            const dataRaw = await getMainData()
+
+            const infoTitleList = dataRaw.data.map(user => '<li id="' + user.data_type + '"  class="h6"> <a  onclick="menuNav(' + user.data_type + ')"  href="http://">' + user.data_type + '</a> </li>')
+
+            const dataFilterd = dataRaw.data.filter(user => user.data_status == dataStatus)
+
+            const filterResult = dataFilterd.map(user => '<div id="data_card"  class="col-lg-3 mb-4 pl-4" >' +
+                '<h6 class="d-block">' + user.data_tittle + '</h6>' +
+                '<h6 class="d-block small">' + user.data_date + '</h6>' +
+                '<h6 class="d-block small text-muted"> ' + user.data_type + ', ' + user.data_group_type + '</h6>' +
+                `<div class=" small"> <a  class="" href="http://localhost:5000/api/v1/data/restore/${user._id}"> restore</a> | <a  class="text-danger" href="http://localhost:5000/api/v1/data/delete/${user._id}"> delete</a> </div>` +
+                '</div>')
+
+            datContent.innerHTML = filterResult
+
+            let x = (infoTitleList) => infoTitleList.filter((v, i) => infoTitleList.indexOf(v) === i)
+            x(infoTitleList)
+
+            dataList.innerHTML = x(infoTitleList)
+
+
+
+
+        } catch (error) {
+            //   alert(`<p class="alert alert-danger">Can't Fetch Datas</p>`)
+        }
+    }
+
+    // Input file place image in img tag here 
+    const getUpldedGalleryiImg = async () => {
+
+
+        const data_gallery = document.querySelector('#data_img')
+        const data_img = document.querySelector('#myimage')
+        const fileList = []
+        const displayUploadedImg = ""
+        var j = 0
+
+        const docMimeTypes = [
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        ]
+        const imgMimeTypes = [
+            'image/jpeg',
+            'image/png'
+        ]
+        const vidMimeTypes = [
+            'video/mp4'
+        ]
+
+        if (inputDataType.value == "document") {
+
+            if (docMimeTypes.includes(data_gallery.files[0].type)) {
+
+                for (var i = 0; i < data_gallery.files.length; i++) {
+
+                    arrImageHolder.push('<label for="" class="col-6 small border rounded p-1 "> <a onclick="removeFromlist()" class="btn btn-sm btn-default">&times;</a> ' + data_gallery.files[i].name + '  </label>')
+
+                    data_img.innerHTML = arrImageHolder.join("")
+
+                }
+
+            }
+
+            else {
+
+                data_gallery.value == ""
+
+                fileInputErr.innerHTML = "error upload pdf docx and excel documents only"
+
+            }
+
+        }
+
+        else if (inputDataType.value == "video") {
+
+            if (vidMimeTypes.includes(data_gallery.files[0].type)) {
+
+                for (var i = 0; i < data_gallery.files.length; i++) {
+
+                    //   arrImageHolder.push('<label for="" class="d-block small border rounded p-1 ">'+data_file_input.files[i].name+' <a onclick="removeFromlist()" class="btn btn-sm btn-default">&times;</a> </label>')
+
+                    //   data_img.innerHTML =  arrImageHolder.join("") 
+                    //   fileInputErr.innerHTML = ""
+
+
+                    fileList.push(data_gallery.files[i])
+
+                    var selectedFile = fileList[i];
+
+                    var reader = new FileReader();
+
+                    reader.readAsDataURL(data_gallery.files[i])
+                    reader.onload = function (e) {
+
+                        console.log(e.target.result)
+
+                        arrImageHolder.push(
+                            '<div class="col-3 float-left">' +
+                            '<video height="100px" controls>' +
+                            '<source src="' + e.target.result + '" type="video/mp4">' +
+                            'Your browser does not support HTML video.' +
+                            '</video>' +
+                            '<a onclick="removeFromlist()" class="btn btn-sm btn-default">&times; video ' + i + '</a> ' +
+                            '</div>')
+
+                        data_img.innerHTML = arrImageHolder.join("")
+                    }
+
+                }
+
+            }
+
+            else {
+
+                data_file_input.value == ""
+                fileInputErr.innerHTML = "error upload pdf docx and excel documents only"
+
+            }
+
+        }
+
+        else if (inputDataType.value == "image-gallery") {
+            console.log("data value: ");
+            console.log(data_gallery.files[0].type);
+            console.log("mime type: ");
+            console.log(imgMimeTypes);
+            console.log("input type: ");
+            console.log(inputDataType.type);
+
+            if (imgMimeTypes.includes(data_gallery.files[0].type)) {
+                console.log(inputDataType.value);
+
+                for (var i = 0; i < data_gallery.files.length; i++) {
+
+                    fileList.push(data_gallery.files[i])
+
+                    var selectedFile = fileList[i];
+
+                    var reader = new FileReader();
+
+                    reader.readAsDataURL(data_gallery.files[i])
+                    reader.onload = function (e) {
+
+                        console.log(e.target.result)
+
+                        arrImageHolder.push('<div class="col-6 " style="background:url(' + e.target.result + '); height: 100px; width: 100px; background-size: cover; background-position: top center; float: left;"></div>')
+
+                        data_img.innerHTML = arrImageHolder.join("")
+                    }
+
+                }
+
+            }
+            else { fileInputErr.innerHTML = "error upload jpg jpeg and png documents only" }
+        }
+
+        var selectedFile = data_gallery.value;
+        const dataRaw = await axios.get('/api/v1/data/get')
+        const dataFilterd = dataRaw.data.filter(user => user._id == dataID)
+
+    }
+
+    // fetch data on load 
+    window.onload = getMainData()
+
+    // Authenticate data title  before uploading
+    const authTitle = async () => {
+        try {
+            const dataRaw = await axios.get('/api/v1/data/get')
+
+            const infoArr = dataRaw.data.map(user => user.data_tittle)
+
+            if (infoArr.includes(getDataTittle.value)) {
+
+                titleErr.classList.add('text-danger')
+                titleErr.innerHTML = "Title aready uploaded please try again"
+
+            } else {
+
+                titleErr.classList.add('text-success')
+
+                console.log(infoArr)
+
+                return dataRaw.data,
+
+                    titleErr.innerHTML = "Title success"
+
+            }
+
+
+        } catch (error) {
+            //   userName.value = `<div class="alert alert-danger">Can't Fetch Datas</div>`
+        }
+    }
+
+    // Load data for display
+    const loadDashDataFromApi = async (dataFilterd) => {
+        try {
+
+            inputDataType.value = dataFilterd[0].data_type
+            getDataTittle.value = dataFilterd[0].data_tittle
+
+            if (dataFilterd[0].data_type == "data-image") {
+
+                const filterResult = dataFilterd.map(user => '<div  class="col-lg-12 mb-4 pl-4">' +
+                    '<h3 class="d-block">' + user.data_tittle + '</h3>' +
+                    '<h6 class="  d-block">data type: ' + user.data_type + ' date posted: ' + user.data_date + '</h6>' +
+                    '<h6 class=" d-block">'
+                    + user.data_value.split(",").map(dataz => '<img class="m-2" src="get/media/' + dataz + '" width="150px" height="200px" alt="" >') +
+                    '</h6>' +
+                    '</div>' + console.log(user.data_value.split(",")))
+
+                modalDatatContent.innerHTML = filterResult
+            }
+
+            else if (dataFilterd[0].data_type == "image") {
+
+                const filterResult = dataFilterd.map(user => '<div  class="col-lg-12 mb-4 pl-4">' +
+                    '<h6 class="  d-block">data type: ' + user.data_type + ' date posted: ' + user.data_date + '</h6>' +
+                    '<div class="d-block">'
+                    + '<img class="m-2" src="../data/get/media/' + user.data_value + '" width="auto" height=380px" alt="" >' +
+                    //    '<div class="small">'+user.data_tittle+'</div>'+ 
+                    '<h5 class=" d-block"> description:</h5>' +
+                    '<h5 class=" d-block">' + user.data_description + '</h5>' +
+                    '</div>' + console.log(user.data_value.split(",")))
+
+                modalDatatContent.innerHTML = filterResult
+            }
+
+            else if (dataFilterd[0].data_type == "video") {
+
+                const filterResult = dataFilterd.map(user => '<div  class="col-lg-12 mb-4 pl-4">' +
+                    '<h3 class="d-block">' + user.data_tittle + '</h3>' +
+                    '<h6 class="  d-block">data type: ' + user.data_type + ' date posted: ' + user.data_date + '</h6>' +
+                    '<div class="">' +
+                    '<h5 class=" d-block"> description:</h5>' +
+                    '<h5 class=" d-block">' + user.data_description + '</h5>' +
+                    '</div>' + console.log(user.data_value.split(",")))
+
+                modalDatatContent.innerHTML = filterResult
+            }
+
+            else if (dataFilterd[0].data_type == "document" || dataFilterd[0].data_type == "text") {
+
+                const filterResult = dataFilterd.map(user => '<div  class="col-lg-12 mb-4 pl-4">' +
+                    '<h3 class="d-block">' + user.data_tittle + '</h3>' +
+                    '<h6 class="  d-block">data type: ' + user.data_type + ' date posted: ' + user.data_date + '</h6>' +
+                    '<div class=" col-12 pull-left">' +
+                    '<p class=" "> ' + user.data_value + '</p>' +
+                    '<a href="data/get/media/documments-0000000-media.docx" class=" "> download</a>' +
+                    '<h5 class=" d-block"> description:</h5>' +
+                    '<h6 class=" d-block">' + user.data_description + '</h6>' +
+                    '<a href="data/get/media/documments-0000000-media.docx" class=" "> download</a>' +
+                    '</div>')
+
+                modalDatatContent.innerHTML = filterResult
+            }
+
+            else if (dataFilterd[0].data_type == "link") {
+
+                const filterResult = dataFilterd.map(user => '<div  class="col-lg-12 mb-4 pl-4">' +
+                    '<h3 class="d-block">' + user.data_tittle + '</h3>' +
+                    '<h6 class="  d-block">data type: ' + user.data_type + ' date posted: ' + user.data_date + '</h6>' +
+                    '<div class=" col-12 pull-left">'
+                    + '<p class=" "> ' + user.data_value + '</p>' +
+                    '<h5 class=" d-block"> description:</h5>' +
+                    '<h5 class=" d-block">' + user.data_description + '</h5>' +
+                    '</div>' + console.log(user.data_value.split(",")))
+
+                resultContent.innerHTML = filterResult
+            }
+
+
+        } catch (error) {
+            //   alert(`<p class="alert alert-danger">Can't Fetch Datas</p>`)
+        }
+    }
+
+    // Load data for editing 
+    const loadDataFromApi = async (mainData, dataId, arrPosition, groupDataCount, newData) => {
+        data_id.value = mainData[0]._id
+
+        try {
+
+            console.log(mainData[0].data_type)
+            // get values for form input here 
+            inputDataType.value = mainData[0].data_type
+            getDataTittle.value = mainData[0].data_tittle
+            inputDataDescription.value = mainData[0].data_description
+
+            const getGalleryImageData = mainData.map(user => user.data_value.split(",").filter(dataz => dataz.split("")[0] != arrPosition).map(dataz => dataz))
+
+            const testImageData = mainData.map(user => user.data_value.split(",").filter(dataz => !dataz.split("")[0].includes(2)).map(dataz => dataz))
+
+            if (mainData[0].data_type == "data-image") {
+
+                // Display uploaded image tag here 
+                getGalleryImage = mainData.map(user => user.data_value.split(",").splice(arrPosition, groupDataCount).map(
+                    dataz => '<img class="m-2" src="../data/get/media/' + dataz + '" width="100px" height="150px" alt="" >'
+                        + '<a class="btn btn-default btn-sm" onclick="rmvFrmGrpArr(1,1)" type=""> <input type="checkbox" name="" id="" value="" > remove &times;</a>'))
+
+                // Display uploaded image holder here
+                filterResult = mainData.map(user => '<div  class="col-lg-12 mb-4 pl-4">' +
+                    '<h6 class="  d-block">data type: ' + user.data_type + ' date posted: ' + user.data_date + '</h6>' +
+                    '<h6 class=" d-block">'
+                    + getGalleryImage.join("") +
+                    '</h6>' +
+                    '</div>')
+
+                // push results to array
+                getGalleryImageData[0].push(newData)
+
+                modalDatatContent.innerHTML = filterResult
+
+            }
+
+            else if (mainData[0].data_type == "image") {
+
+                const filterResult = mainData.map(user => '<div  class="col-lg-12 mb-4 pl-4">' +
+                    '<h6 class="  d-block">data type: ' + user.data_type + ' date posted: ' + user.data_date + '</h6>' +
+                    '<div class="d-block">'
+                    + '<img class="m-2" src="../data/get/media/' + user.data_value + '" width="auto" height=380px" alt="" >' +
+                    //    '<div class="small">'+user.data_tittle+'</div>'+ 
+                    '<h5 class=" d-block"> description:</h5>' +
+                    '<h5 class=" d-block">' + user.data_description + '</h5>' +
+                    '</div>' + console.log(user.data_value.split(",")))
+
+                modalDatatContent.innerHTML = filterResult
+            }
+
+            else if (mainData[0].data_type == "data-video") {
+
+                // Display uploaded image tag here 
+                getGalleryImage = mainData[0].data_value.split(",").map(data =>
+                    '<div class="col-4 float-left">' +
+                    '<video width="100%" controls>' +
+                    '<source src="../data/get/media/' + data + '" type="video/mp4">' +
+                    'Your browser does not support HTML video.' +
+                    '</video>' +
+                    '<a onclick="removeFromlist()" class="btn btn-sm btn-default">&times; video ' + data + ' remove</a> ' +
+                    '</div>'
+
+                )
+
+                // push results to array
+                getGalleryImageData[0].push(newData)
+
+                modalDatatContent.innerHTML = getGalleryImage
+
+                inputDataValueText.value = mainData[0].data_value
+
+            }
+
+            else if (mainData[0].data_type == "data-document") {
+
+                console.log(mainData[0].data_value)
+                // Display uploaded image tag here 
+                getGalleryImage = mainData.map(user => user.data_value.split(",").map(
+                    dataz => '<label for="" class="d-block small border rounded p-1 col-lg-6 col-12"><a onclick="removeFromlist()" class="btn btn-sm btn-default pr-2">&times;</a> ' + dataz + '</label>'))
+
+                // push results to array
+                getGalleryImageData[0].push(newData)
+
+                inputDataValueText.value = getGalleryImage
+
+            }
+
+            else if (mainData[0].data_type == "data-text") {
+
+                inputDataValueText.value = mainData[0].data_value
+
+            }
+
+
+        } catch (error) {
+            //   alert(`<p class="alert alert-danger">Can't Fetch Datas</p>`)
+        }
+    }
+
+</script>

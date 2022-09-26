@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="//cdn.ckeditor.com/4.17.1/full/ckeditor.js"></script>
+    <!-- <script src="//cdn.ckeditor.com/4.17.1/basic/ckeditor.js"></script> -->
+    
+
+    <title>Data input</title>
+</head>
+<body>
+    <div class="container-fluid p-5">
+        <div class="row">
+            <div id="main_div" class="col-12">
+                <div class="card p-5">
+                    <div class="h3">Input data here</div>
+                    <hr /> 
+                    <div class="d-flex justify-items-center">
+                        <a href="http://">back</a> &nbsp; | &nbsp; <a href="http://">dashboard</a> &nbsp; | &nbsp; <a href="http://">insert data</a>
+                    </div>
+                    <hr /> 
+                    <div class="row"> 
+                        <div class="col-2">  
+                            <ul>
+                                <li id="'+user.data_type+'"  class="h6"> <a  onclick="menuNav('search')" class="" href="http://"> Search </a> </li>
+                                <li id="'+user.data_type+'"  class="h6"> <a  onclick="menuNav('search')" class="" href="http://"> my groups </a> </li>
+                                <li id="'+user.data_type+'"  class="h6"> 
+                                     image
+                                    <ul>
+                                        <li id="'+user.data_type+'"  class="h6"> <a  onclick="menuNav('data-image')" class="" href="http://"> galleries </a> </li>
+                                        <li id="'+user.data_type+'"  class="h6"> <a  onclick="menuNav('data-image')" class="" href="http://"> images </a> </li> 
+                                    </ul>
+                                </li>
+                                <li id="'+user.data_type+'"  class="h6"> 
+                                    Documents
+                                    <ul>
+                                        <li id="'+user.data_type+'"  class="h6"> <a  onclick="menuNav('data-document')" class="" href="http://">Documents </a> </li> 
+                                        <li id="'+user.data_type+'"  class="h6"> <a  onclick="menuNav('data-')" class="" href="http://"> word </a> </li>
+                                        <li id="'+user.data_type+'"  class="h6"> <a  onclick="menuNav('data-')" class="" href="http://"> spread sheets </a> </li>
+                                        <li id="'+user.data_type+'"  class="h6"> <a  onclick="menuNav('data-')" class="" href="http://"> slides </a> </li>
+                                        <li id="'+user.data_type+'"  class="h6"> <a  onclick="menuNav('data-')" class="" href="http://"> notes </a> </li>
+                                        <li id="'+user.data_type+'"  class="h6"> <a  onclick="menuNav('data-text')" class="" href="http://"> text </a> </li>
+                                    </ul>
+                                </li>
+                                <li id="'+user.data_type+'"  class="h6"> <a  onclick="menuNav('data-video')" class="" href="http://"> video </a> </li>
+                                <li id="'+user.data_type+'"  class="h6"> <a  onclick="menuNav('data-trash')" class="" href="http://"> Trash </a> </li>
+                            </ul>
+                            <!-- <ul id="data-list"> 
+                            </ul> -->
+                        </div>
+                        <div class="col-10" >
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item"><a href="http://">single</a> </li>
+                                <li class="list-group-item">grouped</li>
+                              </ul> 
+                            <p class="d-none" id="demo"></p>
+                            <div  id="data_content"  class="row p-0 d-none"></div>
+                            <div  id="text-content"  class="row p-0 "></div>  
+                            <div  id=""  class="row p-0 d-none">
+
+                                <!-- <%- //include('partials/update_data'); %> -->
+                                
+                            </div>
+
+                            <%- include('partials/input_data'); %>
+                            
+                        </div> 
+                    </div>
+                    <hr /> 
+                </div>
+            </div>
+        </div>
+    </div> 
+
+
+    <!-- Modal -->
+  <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div id="data_content" class="modal-body"> 
+          
+          <!-- show data info here  --> 
+          
+          <!-- edit data info here  -->
+            <div id="main_div" class="col-12">
+                <div class="">
+                    <div class="h2">update data here</div>
+                    
+                    <form id="form_upl_img" action="/api/v1/data/update" method="post"  enctype="multipart/form-data">
+                        
+                        <div class="form-group"> 
+                            
+                            <div class="row"> 
+                                <!-- Data type here  ========================================================================  -->
+                                <div class="col-3 pb-3"> 
+                                    <label for="data_type">data type</label>
+                                    <input type="text" name="input_data_type" id="input_data_type" class="form-control" disabled> 
+                                </div> 
+                                
+                                <!-- Data title here  ========================================================================  -->
+                                <div class="col-9">
+                                    
+                                    <label for="data tittle">data tittle</label>
+
+                                    <input class="form-control" type="text" onchange="authTitle()" name="input_data_tittle" id="input_data_tittle">
+                                    
+                                    <label id="title_err" for="data tittle" class="text-small small"></label> 
+
+                                </div>
+
+                            </div> 
+
+                        </div>  
+
+                        <div class="div">
+                            
+                            <!-- Data content starts here  ======================================================================= --> 
+                            <div class="form-group"> 
+                                <div class="row"> 
+                                    <div id="result_content" class=""> 
+                                        <div id="display_data_text_div" class="form-group col-12"> 
+                                                <label for="input_data_value_text">text</label> 
+                                                <textarea class="form-control"  name="input_data_value_text" id="input_data_value_text" id="" cols="100%" rows="10" ></textarea> 
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Data content ends here ========================================================================== -->
+
+                            <input type="hidden" name="data_gallery" id="data_gallery">
+                            <input type="hidden" name="data_id" id="data_id">
+                            <input type="hidden" name="data_group" id="data_group" value="group-data">
+
+                            <div class="row"> 
+                                
+                                <!-- upload file input and display  here starts here ============================================= -->
+                                <div class="col-2">  
+                                      <label class="pb-0 btn btn-dark"> 
+                                        <i class='bx bx-plus-medical' ></i>  
+                                        <!-- uploaded file display here  --> 
+                                        Add image 
+                                        <input type="file" class="custom-file-input" onchange="getUpldedGalleryiImg()" name="data_img" size="60" id="data_img" multiple>
+                                    </label>    
+                                </div>
+                                <div class="col-12"> 
+                                    <div class="form-group"> 
+                                        <!-- uploaded file display here  -->
+                                        <div id="myimage" class="d-block row form-group"></div> 
+                                    </div>
+                                </div>
+                                <!-- upload file input here ends here ============================================================= -->
+
+                            </div>
+                        </div>
+                        
+                        <!-- Data description  input here  ======================================================================== -->
+                        <div class="form-group pb-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <label for="data_type">data description</label>
+                                    <textarea class="form-control" name="input_data_description" id="input_data_description" cols="30" rows="5" ></textarea>
+                                </div>
+                            </div>
+                        </div> 
+                        
+                        <!-- <input type="submit" value="Upload"> -->
+                        <button class="btn btn-dark btn-lg btn-block" type="submit">update</button>
+
+                    </form> 
+                </div>
+            </div>
+                    
+        </div> 
+      </div>
+    </div>
+  </div>
+
+  <footer>
+      <%- include('partials/footer'); %>
+  </footer>
+  
+    
+</body>
+</html>

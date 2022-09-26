@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+    <script src="//cdn.ckeditor.com/4.17.1/full/ckeditor.js"></script>
+    
+    <title>Data input</title>
+</head>
+<body>
+    <div class="container p-5">
+        <div class="row">
+            <div id="main_div" class="col-12">
+                <div class="card p-5">
+                    <div class="h2">update data here</div>
+                    
+                    <form id="form_upl_img" action="/api/v1/data/update" method="post"  enctype="multipart/form-data">
+                        
+                        <div class="form-group"> 
+                            
+                            <div class="row"> 
+                                <!-- Data type here  ========================================================================  -->
+                                <div class="col-3 pb-3"> 
+                                    <label for="data_type">data type</label>
+                                    <input type="text" name="input_data_type" id="input_data_type" class="form-control" disabled> 
+                                </div> 
+                                
+                                <!-- Data title here  ========================================================================  -->
+                                <div class="col-9">
+                                    
+                                    <label for="data tittle">data tittle</label>
+
+                                    <input class="form-control" type="text" onchange="authTitle()" name="input_data_tittle" id="input_data_tittle">
+                                    
+                                    <label id="title_err" for="data tittle" class="text-small small"></label> 
+
+                                </div>
+
+                            </div> 
+
+                        </div>  
+
+                        <div class="div">
+                            
+                            <!-- Data content starts here  ======================================================================= --> 
+                            <div class="form-group"> 
+                                <div class="row"> 
+                                    <div id="result_content" class="">  
+                                        <div id="display_data_link_div " class="form-group col-12"> 
+                                                <label for="input_data_value_link">link</label>  
+                                                <input class="form-control" type="text" name="input_data_value_link" id="input_data_value_link">
+                                        </div> 
+                                        <div id="display_data_text_div d-none" class="form-group col-12"> 
+                                                <label for="input_data_value_text">text</label> 
+                                                <textarea class="form-control"  name="input_data_value_text" id="input_data_value_text" id="" cols="100%" rows="10" ></textarea> 
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Data content ends here ========================================================================== -->
+
+                            <input type="hidden" name="data_gallery" id="data_gallery">
+                            <input type="hidden" name="data_group" id="data_group" value="group-data">
+
+                            <div class="row"> 
+                                
+                                <!-- upload file input and display  here starts here ============================================= -->
+                                <div class="col-2">  
+                                      <label class="pb-0 btn btn-dark"> 
+                                        <i class='bx bx-plus-medical' ></i>  
+                                        <!-- uploaded file display here  --> 
+                                        Add image 
+                                        <input type="file" class="custom-file-input" onchange="getUpldedGalleryiImg()" name="data_img" size="60" id="data_img" multiple>
+                                    </label>    
+                                </div>
+                                <div class="col-12"> 
+                                    <div class="form-group"> 
+                                        <!-- uploaded file display here  -->
+                                        <div id="myimage" class="d-block row"></div> 
+                                    </div>
+                                </div>
+                                <!-- upload file input here ends here ============================================================= -->
+
+                            </div>
+                        </div>
+                        
+                        <!-- Data description  input here  ======================================================================== -->
+                        <div class="form-group pb-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <label for="data_type">data description</label>
+                                    <textarea class="form-control" name="input_data_description" id="input_data_description" cols="30" rows="5" ></textarea>
+                                </div>
+                            </div>
+                        </div> 
+                        
+                        <!-- <input type="submit" value="Upload"> -->
+                        <button class="btn btn-dark btn-lg btn-block" type="submit">update</button>
+
+                    </form> 
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <script>
+            // CKEDITOR.replace( 'input_data_value_text' );
+    </script>
+
+    <!-- Latest compiled JavaScript -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+      integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+      crossorigin="anonymous"
+    ></script> 
+    <script> 
+    
+    
+        // display html results for uploaded files retrival ================================== 
+        const resultContent = document.querySelector('#result_content') 
+        const data_gallery = document.querySelector('#data_gallery')  
+
+        // Form inputs ========================================================================
+        const inputDataType = document.querySelector('#input_data_type')
+        const getDataTittle = document.querySelector('#input_data_tittle')
+        const inputDataValueText = document.querySelector('#input_data_value_text')
+        const inputDataDescription = document.querySelector('#input_data_description') 
+        const inputDataValueLink = document.querySelector('#input_data_value_link')
+        
+        // Display div ======================================================================== 
+        const displayDataTextDiv = document.querySelector('#display_data_text_div')
+
+        // Display errors ===================================================================== 
+        const fetchErr = document.querySelector('#fetc_err')  
+        const titleErr = document.querySelector('#title_err')
+        
+        var getGalleryImage = [""]
+        var filterResult = [""]
+            // Get data from data api 
+            const getMainData = async () => {
+                
+                const userInfo =  await axios.get('/api/v1/data/get') 
+                
+                const fiterdData = userInfo.data.filter(user =>user._id == "61aa3707d4393904d8139c97") 
+                
+                const groupDataCount = userInfo.data[0].data_value.split(",").length  
+
+                const position = 1
+                
+                loadDataFromApi(fiterdData, "61aa3707d4393904d8139c97", position, groupDataCount, "","")  
+            }
+
+            // Remove data from  upload list 
+            const rmvFrmGrpArr = async (e) => { 
+                
+                const userInfo =  await axios.get('/api/v1/data/get') 
+                
+                const fiterdData = userInfo.data.filter(user =>user._id == "61aa3707d4393904d8139c97") 
+                
+                const groupDataCount = userInfo.data[0].data_value.split(",").length  
+
+                const position = e
+ 
+
+                loadDataFromApi(fiterdData, "61aa3707d4393904d8139c97", position, groupDataCount, "")  
+
+            }
+            
+            // Input file place image in img tag here 
+            const getUpldedGalleryiImg = async () => {
+                
+                
+                const data_gallery = document.querySelector('#data_img')
+                const data_img = document.querySelector('#myimage')
+                const fileList = []
+                const arrImageHolder = []
+                const displayUploadedImg = ""
+                var j = 0
+
+                const docMimeTypes = [
+                                        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                                     ]
+                const imgMimeTypes = [
+                                        'image/jpeg',
+                                        'image/png'
+                                     ]
+                const vidMimeTypes = [
+                                        'video/mp4' 
+                                     ] 
+            
+                if(inputDataType.value == "document"){ 
+                    
+                    if(docMimeTypes.includes(data_gallery.files[0].type)){ 
+                    
+                        for (var i = 0; i < data_gallery.files.length; i++){   
+                    
+                          arrImageHolder.push('<label for="" class="col-6 small border rounded p-1 "> <a onclick="removeFromlist()" class="btn btn-sm btn-default">&times;</a> '+data_gallery.files[i].name+'  </label>')
+                    
+                          data_img.innerHTML =  arrImageHolder.join("") 
+                    
+                        }
+                        
+                    }
+
+                    else{ 
+                    
+                        data_gallery.value == ""
+
+                        fileInputErr.innerHTML = "error upload pdf docx and excel documents only" 
+                    
+                    }
+                
+                }
+                
+                else if(inputDataType.value == "video"){
+                    
+                    if(vidMimeTypes.includes(data_gallery.files[0].type)){ 
+                    
+                        for (var i = 0; i < data_gallery.files.length; i++){  
+                    
+                        //   arrImageHolder.push('<label for="" class="d-block small border rounded p-1 ">'+data_file_input.files[i].name+' <a onclick="removeFromlist()" class="btn btn-sm btn-default">&times;</a> </label>')
+                    
+                        //   data_img.innerHTML =  arrImageHolder.join("") 
+                        //   fileInputErr.innerHTML = ""
+                             
+                    
+                            fileList.push(data_gallery.files[i])
+                            
+                            var selectedFile = fileList[i];  
+                            
+                            var reader = new FileReader();   
+                            
+                            reader.readAsDataURL(data_gallery.files[i])
+                            reader.onload = function(e){
+                             
+                                console.log(e.target.result)
+                                
+                                arrImageHolder.push(
+                                                    '<div class="col-3 float-left">'+
+                                                        '<video height="100px" controls>'+
+                                                            '<source src="'+e.target.result+'" type="video/mp4">' +
+                                                            'Your browser does not support HTML video.'+
+                                                        '</video>'+
+                                                        '<a onclick="removeFromlist()" class="btn btn-sm btn-default">&times; video '+i+'</a> '+ 
+                                                    '</div>')  
+                                
+                                data_img.innerHTML =  arrImageHolder.join("") 
+                            } 
+                    
+                        }
+                        
+                    }
+                   
+                    else{ 
+                    
+                        data_file_input.value == ""
+                        fileInputErr.innerHTML = "error upload pdf docx and excel documents only" 
+                    
+                    }
+                    
+                } 
+
+                else if(inputDataType.value == "image-gallery"){ 
+                    
+                    if(imgMimeTypes.includes(selectedFile.type)){
+                        
+                        for (var i = 0; i < data_file_input.files.length; i++){ 
+          
+                            fileList.push(data_file_input.files[i])
+                            
+                            var selectedFile = fileList[i];  
+                            
+                            var reader = new FileReader();   
+                            
+                            reader.readAsDataURL(data_file_input.files[i])
+                            reader.onload = function(e){
+                             
+                                console.log(e.target.result)
+                                
+                                arrImageHolder.push('<div class="col-6 " style="background:url('+e.target.result+'); height: 100px; width: 100px; background-size: cover; background-position: top center; float: left;"></div>')  
+                                
+                                data_img.innerHTML =  arrImageHolder.join("") 
+                            } 
+                            
+                        }  
+                        
+                    }
+                    else{ fileInputErr.innerHTML = "error upload jpg jpeg and png documents only"}
+                } 
+
+                var selectedFile = data_gallery.value;
+                const userInfo =  await axios.get('/api/v1/data/get') 
+                const fiterdData = userInfo.data.filter(user =>user._id == "61aa3707d4393904d8139c97") 
+                 
+            } 
+
+            // Load all data on page load 
+            window.onload = getMainData()
+            
+    </script> 
+
+    <script>
+  
+        const authTitle = async () => {
+          try {
+            const userInfo = await axios.get('/api/v1/data/get')
+            
+            const infoArr = userInfo.data.map(user => user.data_tittle)
+
+             if(infoArr.includes(getDataTittle.value)){
+                 
+                 titleErr.classList.add('text-danger')
+                 titleErr.innerHTML="Title aready uploaded please try again"
+
+             }else{
+                  
+                  titleErr.classList.add('text-success')
+  
+                   console.log(infoArr)
+  
+                   return userInfo.data,
+  
+                  titleErr.innerHTML="Title success"
+
+             }
+
+  
+          } catch (error) {
+            //   userName.value = `<div class="alert alert-danger">Can't Fetch Datas</div>`
+          }
+        } 
+        
+
+        const loadDataFromApi = async (mainData, dataId, arrPosition, groupDataCount, newData) => {  
+            
+            try {  
+                
+                console.log(mainData[0].data_type)
+                // get values for form input here 
+                inputDataType.value = mainData[0].data_type
+                getDataTittle.value = mainData[0].data_tittle
+                inputDataDescription.value = mainData[0].data_description 
+ 
+                    const getGalleryImageData = mainData.map(user =>  user.data_value.split(",").filter(dataz => dataz.split("")[0] != arrPosition).map(dataz => dataz ))  
+
+                    const testImageData = mainData.map(user =>  user.data_value.split(",").filter(dataz => !dataz.split("")[0].includes(2)).map(dataz => dataz ))  
+                    
+                    if(mainData[0].data_type == "image-gallery"){
+                        
+                        // Display uploaded image tag here 
+                        getGalleryImage = mainData.map(user =>  user.data_value.split(",").splice(arrPosition, groupDataCount).map(
+                            dataz => '<img class="m-2" src="../../data/get/media/'+dataz+'" width="100px" height="150px" alt="" >'
+                                    +'<a class="btn btn-default btn-sm" onclick="rmvFrmGrpArr(1,1)" type=""> <input type="checkbox" name="" id="" value="" > remove &times;</a>'))
+                        
+                        // Display uploaded image holder here
+                        filterResult = mainData.map(user => '<div  class="col-lg-12 mb-4 pl-4">'+ 
+                                                               '<h3 class="d-block">'+user.data_tittle+'</h3>'+
+                                                               '<h6 class="  d-block">data type: '+user.data_type+' date posted: '+user.data_date+'</h6>'+
+                                                               '<h6 class=" d-block">'
+                                                                +getGalleryImage.join("")+
+                                                               '</h6>'+    
+                                                               '</div>') 
+                         
+                        // push results to array
+                        getGalleryImageData[0].push(newData) 
+                                                                   
+                        resultContent.innerHTML= filterResult  
+
+                    }
+                   
+                    else if(mainData[0].data_type == "video"){   
+                        
+                        // Display uploaded image tag here 
+                        getGalleryImage = mainData[0].data_value.split(",").map(data => 
+                                                    '<div class="col-4 float-left">'+
+                                                        '<video width="100%" controls>'+
+                                                            '<source src="../../data/get/media/'+data+'" type="video/mp4">' +
+                                                            'Your browser does not support HTML video.'+
+                                                        '</video>'+
+                                                        '<a onclick="removeFromlist()" class="btn btn-sm btn-default">&times; video '+data+' remove</a> '+
+                                                    '</div>'
+                        
+                        ) 
+                         
+                        // push results to array
+                        getGalleryImageData[0].push(newData) 
+                                                                   
+                        resultContent.innerHTML= getGalleryImage  
+                         
+                        inputDataValueText.value = mainData[0].data_value
+
+                    }
+                   
+                    else if(mainData[0].data_type == "document"){ 
+                        
+                        console.log(mainData[0].data_value)
+                        // Display uploaded image tag here 
+                        getGalleryImage = mainData.map(user =>  user.data_value.split(",").map(
+                            dataz => '<label for="" class="d-block small border rounded p-1 col-lg-6 col-12"><a onclick="removeFromlist()" class="btn btn-sm btn-default pr-2">&times;</a> '+dataz+'</label>'))
+                         
+                        // push results to array
+                        getGalleryImageData[0].push(newData) 
+                                                                   
+                        resultContent.innerHTML= getGalleryImage  
+
+                    }
+                   
+                    else if(mainData[0].data_type == "link"){ 
+                         
+                        inputDataValueLink.value = mainData[0].data_value
+
+                    }
+                 
+                    else if(mainData[0].data_type == "text"){ 
+                         
+                        inputDataValueText.value = mainData[0].data_value
+
+                    }
+
+                
+            } catch (error) {
+              //   alert(`<p class="alert alert-danger">Can't Fetch Datas</p>`)
+            } 
+        }  
+        
+          
+    </script>
+    
+</body>
+</html>

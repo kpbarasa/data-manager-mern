@@ -1,0 +1,135 @@
+
+    <div class="container p-5">
+        <div class="row">
+            <div id="main_div" class="col-12">
+                <div class="">
+                    <div class="h2">Input datas here</div>
+                    <hr /> 
+                    
+                    <form id="form_upl_img" action="/api/v1/data/post" method="post"  enctype="multipart/form-data">
+                        
+                        <div class="form-group">
+
+                            
+                            <div class="row"> 
+
+                                <div class="col-8 pb-3"> 
+                                    <label for="data_type">data type</label>
+                                    <select class="form-control" name="data_type" id="data_type" onchange="getDatatype()" required>
+                                        <option>select</option>
+                                        <option value="data-image">image</option>
+                                        <option value="data-video">video</option>
+                                        <option value="data-text">text</option>
+                                        <option value="data-document">document</option>
+                                    </select>
+                                </div> 
+                                
+                                <div class="col-4 pb-3"> 
+                                    <label for="data_type">data type</label>
+                                    <select class="form-control" onchange="getGroupType()" name="data_group_type" id="data_group_type"  required>
+                                        <option>select</option>
+                                        <option value="data-single">single</option>
+                                        <option value="data-group">group</option>
+                                    </select>
+                                </div> 
+
+                                <div class="col-12">
+                                    <label for="data tittle">data tittle</label>
+                                    <input class="form-control" type="text" onchange="fetchUser()" name="data_tittle" id="get_data_tittle" required>
+                                    
+                                    <label id="title_err" for="data tittle" class="text-small small"></label>
+
+                                </div>
+                                
+                                <!-- Data title here  ========================================================================  -->
+                                <!-- <div class="col-12">
+                                    
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                      <label class="form-check-label" for="inlineCheckbox1">word</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                                      <label class="form-check-label" for="inlineCheckbox2">excel</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                                      <label class="form-check-label" for="inlineCheckbox2">pdf</label>
+                                    </div>
+
+                                </div> -->
+
+                            </div> 
+                        </div>  
+
+                        <!-- Data starts here  ========================================================================-->
+
+                        <div id="data_img_gallery_div" class="p-3 d-none">
+
+                            <div class="row ">
+
+                                <div class="col-12">
+                                    <span id="upload_data_statement" class="p float-left"></span>
+                                    <span id="upload_file_statement" class="p text-success float-left ml-2"></span>
+                                </div> 
+                                <div class="col-12"> 
+                                    <div id="data_img_gallery_div" class="profile-pic" style='
+                                      background-size: contain; 
+                                      background-position: top;'>
+                                      <label class="btn btn-dark pt-5"> 
+                                        <i class='bx bx-plus-medical' ></i>  &plus; Add
+                                        <input type="file" class="custom-file-input" onchange="getUpldedGalleryiImg()" name="data_file_input" id="data_file_input" multiple required disabled>
+                                      </label>   
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div id="myimage" class="d-block"> </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div id="file_input_err" class="small text-danger"> 
+                                    </div>
+                                </div>
+
+                            </div> 
+
+                        </div>
+                        
+                        <div id="data_link_div" class="form-group pb-4  d-none">
+                            <div class="col-12">
+                                <label for="data_type">Link</label>
+                                <input type="text" name="data_link" id="data_link" class="form-control" required disabled>
+                            </div>
+                        </div> 
+                        
+                        <div id="data_text_div" class="form-group pb-4 d-none">
+                            <div class="col-12">
+                                <label for="data_type"></label> 
+                                <textarea class="form-control"  name="data_text" id="data_text" id="" cols="30" rows="10" required ></textarea>
+                            </div>
+                        </div> 
+
+                        <!-- Data ends here  ========================================================================-->
+
+                        <div class="form-group pb-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <label for="data_type">data description</label>
+                                    <textarea class="form-control" name="data_description" id="data_description" cols="30" rows="5" ></textarea>
+                                </div>
+                            </div>
+                        </div> 
+                        
+                        <!-- <input type="submit" value="Upload"> -->
+                        <button class="btn btn-dark btn-lg btn-block" type="submit">Upload</button> 
+                        
+                      </form> 
+                </div>
+            </div>
+        </div>
+    </div> 
+    <script>
+            CKEDITOR.replace( 'data_text' );
+    </script>
+     
