@@ -71,9 +71,7 @@ Desc:   404 Page Error
     
     
 ## 3. Middleware.js:
-    
-Handler:  notFound <br>
-Desc:   404 Page Error
+####  (auth-post.middleware.js)
     
 ## 4. Server.js:
     
