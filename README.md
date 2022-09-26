@@ -44,14 +44,40 @@ Data manager
 # 3 APP COMPONENETS 
 
 ## 1. Assets/:
-#### documents 
-##### docs 
-##### pdf 
+#### 1.1 documents 
+##### 1.1.2 docs 
+##### 1.1.3 pdf 
    
-#### images
-#### videos
+#### 1.1 images
+#### 1.2 videos
     
-## 2. Handlers.js:
+## 2. Handlers/:
+#### 2.1 errorHandlers.js
+    ```
+    Handler:  (catchErrors) Catch Errors Handler
+    Desc:  catch url string errors
+    ```
+    
+    ```
+    Handler: (mongoseErrors) MongoDB Validation Error Handler
+    Desc:  Detect if there are mongodb validation errors that we send them nicely back.
+    ```
+    
+    ```
+    Handler:  (developmentErrors) Development Error Handler
+    Desc:  In development we show good error messages so if we hit a syntax error or any other previously un-handled error, we can show good info on what happened
+    ```
+    
+    ```
+    Handler:  (productionErrors) No stacktraces and error details are leaked to user
+    Desc:  No stacktraces and error details are leaked to user
+    ```
+    
+    ```
+    Handler:  notFound
+    Desc:   404 Page Error
+    ```
+    
     
 ## 3. Middleware.js:
     
