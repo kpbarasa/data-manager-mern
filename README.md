@@ -1,5 +1,4 @@
-# M-Pesa
-Data manager
+# Data Manager MERN Stack
 
 <p>
     Simple mpesa back end API that exposses endpoints that allow for Mpesa transactions Customer to business(C2B).
